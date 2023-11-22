@@ -103,7 +103,7 @@ body {
             padding: 10px;
             margin: 20px;
             text-align: center;
-            width: 200px;
+            width: 300px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -209,8 +209,8 @@ body {
                     <div class="coffee-item">
                         <img src="${data[key].link}" alt="">
                         <h2>${data[key].name}</h2>
-                        <p>Price: ${data[key].price} ₺</p>
-                        <p>Size: ${data[key].size}</p>
+                        <p>Price: ${data[key].small_price + " TL / " + data[key].medium_price + " TL / " + data[key].large_price + " TL"}</p>
+                        <p>Size: Small / Medium / Large</p>
                     </div>
                 `;
 
