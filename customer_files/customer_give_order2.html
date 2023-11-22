@@ -253,10 +253,17 @@
         }
 
         function coffee_amount(){
+            const coffee_amount_total = localStorage.getItem('coffee_amount');
+            for (let i = 1; i <= coffee_amount_total; i++) {
+                document.getElementById('coffee_number').innerHTML += `
+                        <option value="${i}">${i}</option>
+                    `;
+            }
             
         }
         
         window.onload = coffee_options();
+        window.onload = coffee_amount();
 
 
 
