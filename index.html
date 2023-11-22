@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Coffee Shop</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html    {
+        height: 100%;
+        }
+          
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+     background-color: #FFF3E4;
+        }
+
+
+
+        header {
+            background-color: #6B4F4F  ;
+            color: #FFF3E4;
+            text-align: center;
+            padding: 1em;
+
+        }
+
+        nav {
+            background-color: #483434;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: #FFF3E4;
+            text-decoration: none;
+            padding: 1em;
+            margin: 0 1em;
+        }
+
+        nav a:hover {
+            background-color: #EED6C4   ;
+            color: #483434;
+        }
+
+        section {
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
+
+        .section_h1 {
+            color: #483434;
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+
+
+        p {
+            color: #483434;
+            font-size: 1.5em;
+            margin-top: 50px;
+        }
+        
+        .logo {
+            width: 75px;
+            height: 75px;
+        }   
+
+            </style>
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="..\WEB_HW3\logo.png" alt="" style="float: left; margin-left: 10px;">
+        <h1>Apollo Coffee Shop
+
+        </h1>
+    </header>
+
+    <nav>
+        <a href="#about" onclick="showSection('about')">About</a>
+        <a href="index.html" onclick="showSection('welcome')">Home</a>
+        <a href="./customer_files/customer_signin.html" >Customer Sign In</a>
+        <a href="./admin_files/admin_signin.html" >Admin Sign In</a>
+        <a href="./customer_files/register.html">Register</a>
+    </nav>
+
+    <section id="welcome">
+        <h1 class="section_h1">Welcome to Apollo Coffee Shop</h1>
+        <p id="welcome-message">
+            Apollo Coffee Shop is a coffee shop that serves the best coffee in town. We have a wide variety of coffee
+            types and sizes. We also have a loyalty program for our customers. Sign up today to start drinking the best
+            coffee in town.
+        </p>
+    </section>
+
+    <section id="about" style="display: none;">
+        <h1 class="section_h1">About Apollo Coffee Shop</h1>
+        <p>
+            Apollo Coffee shop aims to provide the best coffee in town. We have a wide variety of coffee types and sizes.
+        </p>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('about').style.display = 'none';
+        
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+
+    <script>
+        const welcomeMessage = document.getElementById('welcome-message');
+        const messageText = welcomeMessage.textContent;
+        welcomeMessage.textContent = '';
+
+        function typeWriter(text, index) {
+            if (index < text.length) {
+                welcomeMessage.textContent += text.charAt(index);
+                index++;
+                setTimeout(function () {
+                    typeWriter(text, index);
+                }, 75);
+            }
+        }
+
+        window.onload = function () {
+            typeWriter(messageText, 0);
+        };
+    
+    </script>
+</body>
+
+</html>

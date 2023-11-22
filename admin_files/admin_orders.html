@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Coffee Shop</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html    {
+        height: 100%;
+        }
+          
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+     background-color: #FFF3E4;
+        }
+
+
+
+        header {
+            background-color: #6B4F4F  ;
+            color: #FFF3E4;
+            text-align: center;
+            padding: 1em;
+
+        }
+
+        nav {
+            background-color: #483434;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: #FFF3E4;
+            text-decoration: none;
+            padding: 1em;
+            margin: 0 1em;
+        }
+
+        nav a:hover {
+            background-color: #EED6C4   ;
+            color: #483434;
+        }
+
+        section {
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
+
+        .section_h1 {
+            color: #483434;
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #483434;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        p {
+            color: #483434;
+            font-size: 1.2em;
+            margin-top: 50px;
+        }
+        
+        .logo {
+            width: 75px;
+            height: 75px;
+        }   
+
+
+        .coffee-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .coffee-item {
+            background-color: #EED6C4;
+            border: 4px solid #6B4F4F;
+            border-radius: 8px;
+
+
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coffee-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .coffee-item img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        p {
+            color: #483434;
+            font-size:1.15em;
+            font-weight: bold;
+        }
+
+        #logout{
+            background-color: #483434;
+            color: #FFF3E4;
+            cursor: pointer;
+            justify-content: center;
+            display: block;
+            width: 100px;
+            float:inline-end;
+            padding: 1.22em;
+            margin-top: -1%;
+        
+        }
+
+        #logout:hover {
+            background-color: #EED6C4;
+            color: #483434;
+            text-decoration: underline;
+
+        }
+
+        button {
+            background-color: #483434;
+            color: #FFF3E4;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            justify-content: center;
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+
+            
+        }
+
+        button:hover {
+            background-color: #EED6C4   ;
+            color: #483434;
+            text-decoration: underline;
+        }
+
+            </style>
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+        <h1>Apollo Coffee Shop
+
+        </h1>
+    </header>
+
+        <nav>
+            <a href="..\admin_files\admin_main.html" >Home</a>
+            <a href="..\admin_files\admin_add_coffee.html" >Add Coffee</a>
+            <a href="..\admin_files\admin_orders.html" >Orders</a>
+            <a href="..\admin_files\admin_coffees.html" >Coffees</a>
+            <button id="logout" type="button" onclick="logout()">Logout</button>
+    
+        </nav>
+
+
+
+    <script>
+
+
+
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "../index.html";
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

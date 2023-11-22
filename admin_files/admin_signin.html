@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Coffee Shop</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src = "..\script.js"></script>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html    {
+        height: 100%;
+        }
+          
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+     background-color: #FFF3E4;
+        }
+
+
+
+        header {
+            background-color: #6B4F4F  ;
+            color: #FFF3E4;
+            text-align: center;
+            padding: 1em;
+
+        }
+
+        nav {
+            background-color: #483434;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: #FFF3E4;
+            text-decoration: none;
+            padding: 1em;
+            margin: 0 1em;
+        }
+
+        nav a:hover {
+            background-color: #EED6C4   ;
+            color: #483434;
+        }
+
+        section {
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
+
+        .section_h1 {
+            color: #483434;
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 40px;
+            margin-top: 50px;
+
+
+        }
+
+
+
+        p {
+            color: #483434;
+            font-size: 1.5em;
+        }
+        
+        .logo {
+            width: 75px;
+            height: 75px;
+        }   
+
+
+        .wrapper {
+            width: 400px;
+            height: 400px;
+            background-color: #6B4F4F;
+            color: #FFF3E4;
+            border-radius: 10px;
+            padding: 30px 50px;
+            margin: auto;
+            margin-top: 60px;
+    
+    }
+
+
+        .wrapper h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .wrapper .input-box {
+            width: 100%;
+            height: 50px;
+            margin: 30px 0;
+            background-color: #6B4F4F;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid #FFF3E4;
+            border-radius: 40px;
+            font-size: 16px;
+            color: #EED6C4;
+            padding:20px 45px 20px 20px;
+        }
+
+        .input-box input::placeholder {
+            color: #FFF3E4;
+
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .wrapper .btn {
+            width: 100%;
+            height: 45px;
+            background-color: #EED6C4;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px #EED6C4;
+            cursor: pointer;
+            font-size: 16px;
+            color: #483434;
+            font-weight: 600;
+        }
+
+        .wrapper .btn:hover {
+            background-color: #483434;
+            color: #EED6C4;
+        }
+
+        .wrapper .register-link {
+            text-align: center;
+            font-size: 14.5px;
+            margin: 20px 0 15px;
+        }
+
+
+        </style>
+
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+        <h1>Apollo Coffee Shop
+
+        </h1>
+    </header>
+
+    <nav>
+        <a href="#about" onclick="showSection('about')">About</a>
+        <a href="..\index.html" onclick="showSection('welcome')">Home</a>
+        <a href="..\customer_files\customer_signin.html" >Customer Sign In</a>
+        <a href="..\admin_files\admin_signin.html" >Admin Sign In</a>
+        <a href="..\customer_files\register.html">Register</a>
+    </nav>
+
+    <div class="wrapper">
+        <form action="">
+            <h1>Admin Login</h1>
+            <div class="input-box">
+                <i class='bx bxs-user'></i>
+                <label for="admin-email">Email</label>
+                <input id="admin-email" type="text" placeholder="Email" required>
+            </div>
+            <div class="input-box">
+                <i class='bx bxs-lock-alt' ></i>
+                <label for="admin-password">Password</label>
+                <input id="admin-password" type="password" placeholder="Password" required>
+
+            </div>
+            <button id="admin-login" class="btn" type="submit" onclick="admin_login(event)">Login</button>
+
+        
+
+        </form>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
