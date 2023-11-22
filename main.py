@@ -303,7 +303,7 @@ def customer_login():
             if customer.val()['email'] == email:
                 if customer.val()['password'] == password:
                     access_token = create_access_token(identity= {"type": "customer", "id": customer.key()})
-                    return {"access_token": access_token}, 200
+                    return {"access_token": access_token, "customer_id": customer.key()}, 200
     
                 else:
                     return jsonify({"message": "Wrong password"}), 400
