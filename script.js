@@ -18,7 +18,7 @@ function admin_login(event) {
         return response.json();
     })
     .then(data => {
-        localStorage.setItem("token", JSON.stringify(data.access_token));
+        localStorage.setItem("admin_token", JSON.stringify(data.access_token));
         window.location.href = "admin_main.html";
     })
     .catch(error => {
@@ -29,6 +29,7 @@ function admin_login(event) {
     
     });
 }
+
 function customer_login(event) {
     event.preventDefault();
     const customer_email = document.getElementById("customer_email").value;
@@ -48,8 +49,8 @@ function customer_login(event) {
         return response.json();
     })
     .then(data => {
+        localStorage.setItem("customer_id", JSON.stringify(data.customer_id));
         localStorage.setItem("customer_token", JSON.stringify(data.access_token));
-        localStorage.setItem("customer_id", JSON.stringify(data));
         window.location.href = "customer_main.html";
     })
     .catch(error => {
