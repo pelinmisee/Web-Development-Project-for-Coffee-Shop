@@ -49,6 +49,7 @@ function customer_login(event) {
     })
     .then(data => {
         localStorage.setItem("token", JSON.stringify(data.access_token));
+        localStorage.setItem("customer_id", JSON.stringify(data.customer_id));
         window.location.href = "customer_main.html";
     })
     .catch(error => {
