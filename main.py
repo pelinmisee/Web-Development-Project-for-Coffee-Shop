@@ -349,13 +349,10 @@ def give_order():
 
 #--> customer-get
 #customerın kendi bilgilerini görebileceği route.
-@app.route('/customer/get', methods=['GET'])
+@app.route('/customer/<string:customer_id>', methods=['GET'])
 @customer_auth()
-def get_customer():
+def get_customer(customer_id):
     try:
-        data = request.get_json()
-        customer_id = data["customer_id"]
-        
         customer = db.child("customers").child(customer_id).get()
         return jsonify(customer.val()), 200
     except Exception as e:

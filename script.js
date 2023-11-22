@@ -49,8 +49,8 @@ function customer_login(event) {
         return response.json();
     })
     .then(data => {
-        localStorage.setItem("customer_id", JSON.stringify(data.customer_id));
         localStorage.setItem("customer_token", JSON.stringify(data.access_token));
+        localStorage.setItem("customer_id", JSON.stringify(data.customer_id));
         window.location.href = "customer_main.html";
     })
     .catch(error => {
