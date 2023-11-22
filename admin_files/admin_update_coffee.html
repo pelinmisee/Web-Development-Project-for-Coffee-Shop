@@ -202,15 +202,14 @@ body {
             <label for="coffeeImage">Coffee Image URL:</label>
             <input type="url" id="coffeeImage" name="coffeeImage" required>
 
-            <label for="coffeePrice">Coffee Price (TL):</label>
-            <input type="number" id="coffeePrice" name="coffeePrice" step="1" , min="1" required>
+            <label for="small_price">Coffee Price (Small) (TL):</label>
+            <input type="number" id="small_price" name="small_price" required>
 
-            <label for="coffeeSize">Coffee Size:</label>
-            <select id="coffee-size" name="coffee-size">
-                <option value="Small">Small</option>
-                <option value="Medium">Medium</option>
-                <option value="Large">Large</option>
-            </select>
+            <label for="medium_price">Coffee Price (Medium) (TL):</label>
+            <input type="number" id="medium_price" name="medium_price" required>
+
+            <label for="large_price">Coffee Price (Large) (TL):</label>
+            <input type="number" id="large_price" name="large_price" required>
 
 
             <button id="addCoffee" type="button" onclick="update_coffee()">Update Coffee</button>
@@ -223,8 +222,11 @@ body {
         
             var coffee_name = document.getElementById("coffeeName").value;
             var coffee_link = document.getElementById("coffeeImage").value;
-            var coffee_price = document.getElementById("coffeePrice").value;
-            var coffee_size = document.getElementById("coffee-size").value;
+            var coffee_small_price = document.getElementById("small_price").value;
+            var coffee_medium_price = document.getElementById("medium_price").value;
+            var coffee_large_price = document.getElementById("large_price").value;
+
+            
 
             if (coffee_name == "" || coffee_link == "" || coffee_price == "" || coffee_size == "") {
                 alert("Please fill all the fields!");
@@ -234,12 +236,13 @@ body {
             const dataToSend = {
                 "name": coffee_name,
                 "link": coffee_link,
-                "price": coffee_price,
-                "size": coffee_size,
+                "small_price": coffee_small_price,
+                "medium_price": coffee_medium_price,
+                "large_price": coffee_large_price,
                 "id": localStorage.getItem("coffee_id_for_update").replace('"', '').replace('"', '')
               };
 
-              const token = localStorage.getItem("token").replace('"', '').replace('"', '');
+              const token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
             
 
             fetch (`http://127.0.0.1:5000/admin/update-coffee`, 
@@ -269,7 +272,7 @@ body {
 
 
     function logout() {
-        localStorage.removeItem("token");
+        localStorage.removeItem("admin_token");
         window.location.href = "../index.html";
 
     }

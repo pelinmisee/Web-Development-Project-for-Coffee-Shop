@@ -136,20 +136,22 @@ def add_coffee():
         data = request.get_json()
         coffee_image = data["link"]
         coffee_name = data["name"]
-        coffee_price = data["price"]
-        coffee_size = data["size"]
+        coffee_s_price = data["small_price"]
+        coffee_m_price = data["medium_price"]
+        coffee_l_price = data["large_price"]
 
         coffees = db.child("coffees").get()
         for coffee in coffees.each():
-            if coffee.val()['name'] == coffee_name and coffee.val()['size'] == coffee_size:
+            if coffee.val()['name'] == coffee_name:
                 return jsonify({"message": "Coffee with this name already exists"}), 400
 
                 
         db.child("coffees").push({
             "link": coffee_image,
             "name": coffee_name,
-            "price": coffee_price,
-            "size": coffee_size
+            "small_price": coffee_s_price,
+            "medium_price": coffee_m_price,
+            "large_price": coffee_l_price,
         })
         
         return jsonify({"message": "Coffee added successfully"}), 201  # Created
@@ -165,15 +167,17 @@ def update_coffee():
         data = request.get_json()
         coffee_image = data["link"]
         coffee_name = data["name"]
-        coffee_price = data["price"]
-        coffee_size = data["size"]
+        coffee_s_price = data["small_price"]
+        coffee_m_price = data["medium_price"]
+        coffee_l_price = data["large_price"]
         coffee_id = data["id"]
         
         db.child("coffees").child(coffee_id).update({
            "link": coffee_image,
             "name": coffee_name,
-            "price": coffee_price,
-            "size": coffee_size
+            "small_price": coffee_s_price,
+            "medium_price": coffee_m_price,
+            "large_price": coffee_l_price,
         })
         
         return jsonify({"message": "Coffee updated successfully"}), 200

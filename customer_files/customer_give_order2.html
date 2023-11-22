@@ -131,7 +131,6 @@
                     color: #483434;
                     text-decoration: underline;
                 }
-        
                 .main-title {
                     text-align: center;
                     margin-top: 40px;
@@ -206,14 +205,22 @@
             <button id="logout" type="button" onclick="logout()">Logout</button>
     
         </nav>
-        <h1 class="main-title">How Many Coffees</h1>
+        <h1 class="main-title">Add Coffee to Your Order</h1>
 
         <div class="add-coffee-form">
-        <form>
-              <label for="coffee_amount">How Many Coffee Will You Order?</label>
-                <input type="number" id="coffee_amount" name="quantity" min="1" required>
-                <br><br>
-                <button type="button" onclick="nextStep()">Next</button>
+            <form>
+                <label for="coffee_name" >Coffee Name</label>
+                <select name="coffee_name" id="coffee_name"></select>
+
+                <label for="coffee_size" >Coffee Size</label>
+                <select name="coffee_size" id="coffee_size">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large" >Large</option> </select>
+                
+                <label for="coffee_number">How Many?</label>
+                <select name="coffee_number" id="coffee_number"> </select>
+                
               </form>
 
         </div>
@@ -221,17 +228,36 @@
     
     <script>     
     
-        function nextStep() {
-            var coffee_amount = document.getElementById("coffee_amount").value;
-
-            if (coffee_amount == "") {
-                alert("Please enter the number of coffees you want to order.");
-                return;
-            }
-
-            localStorage.setItem("coffee_amount", coffee_amount);
-            window.location.href = "customer_give_order2.html";
+        function coffee_options(){
+            fetch (`http://127.0.0.1:5000/customer/all-coffees`, 
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('customer_token').replace('"', '').replace('"', '')
+                }
+            })
+    
+    
+            .then(response => response.json())
+            .then(data => {
+                const coffeeArray = Object.values(data);
+                const keys = Object.keys(data);
+    
+                keys.forEach(key => {
+                   document.getElementById('coffee_name').innerHTML += `
+                        <option value="${data[key].id}">${data[key].name}</option>
+                    `;
+    
+                })})
         }
+
+        function coffee_amount(){
+            
+        }
+        
+        window.onload = coffee_options();
+
 
 
         function logout() {

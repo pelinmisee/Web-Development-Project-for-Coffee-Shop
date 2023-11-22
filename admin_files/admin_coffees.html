@@ -103,7 +103,7 @@ body {
             padding: 10px;
             margin: 20px;
             text-align: center;
-            width: 200px;
+            width: 300px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -215,13 +215,13 @@ body {
     <div class="coffee-list" id="coffee-list"> </div>
 
     <script>
-
+    function get_all_coffees() {
         fetch (`http://127.0.0.1:5000/admin/all-coffees`, 
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token').replace('"', '').replace('"', '')
+                'Authorization': 'Bearer ' + localStorage.getItem('admin_token').replace('"', '').replace('"', '')
             }
         })
 
@@ -236,8 +236,8 @@ body {
                     <div class="coffee-item">
                         <img src="${data[key].link}" alt="">
                         <h2>${data[key].name}</h2>
-                        <p>Price: ${data[key].price} ₺</p>
-                        <p>Size: ${data[key].size}</p>
+                        <p>Price: ${data[key].small_price + " TL / " + data[key].medium_price + " TL / " + data[key].large_price + " TL"}</p>
+                        <p>Size: Small / Medium / Large</p>
                         <button id="deleteCoffee" type="button" onclick="delete_coffee('${key}')">Delete</button>
                         <button id="updateCoffee" type="button" onclick="update_coffee('${key}')">Update</button>
                     </div>
@@ -245,12 +245,15 @@ body {
 
             })
         })
+    }
+
+    window.onload = get_all_coffees();
 
 
 
 
         function logout() {
-            localStorage.removeItem("token");
+            localStorage.removeItem("admin_token");
             window.location.href = "../index.html";
         }
 
@@ -260,7 +263,7 @@ body {
                 "id": coffee_id,
               };
 
-              const token = localStorage.getItem("token").replace('"', '').replace('"', '');
+              const token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
                             
                 fetch(`http://127.0.0.1:5000/admin/delete-coffee`, {
                     method: 'DELETE',
@@ -286,9 +289,7 @@ body {
 
 
         }
-    
-
-
+  
 
     </script>
 
