@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Coffee Shop</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html    {
+                height: 100%;
+                }
+                  
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+             background-color: #FFF3E4;
+                }
+        
+        
+        
+                header {
+                    background-color: #6B4F4F  ;
+                    color: #FFF3E4;
+                    text-align: center;
+                    padding: 1em;
+        
+                }
+        
+                nav {
+                    background-color: #483434;
+                    padding: 1em;
+                    text-align: center;
+                }
+        
+                nav a {
+                    color: #FFF3E4;
+                    text-decoration: none;
+                    padding: 1em;
+                    margin: 0 1em;
+                }
+        
+                nav a:hover {
+                    background-color: #EED6C4   ;
+                    color: #483434;
+                    text-decoration: underline;
+                }
+        
+                section {
+                    padding: 0;
+                    text-align: center;
+                    margin: 0;
+                    box-sizing: border-box;
+        
+                }
+        
+                .section_h1 {
+                    color: #483434;
+                    font-size: 3em;
+                    font-weight: bold;
+                    margin-top: 40px;
+                }
+        
+        
+        
+                p {
+                    color: #483434;
+                    font-size: 1.5em;
+                    margin-top: 50px;
+                }
+                
+                .logo {
+                    width: 75px;
+                    height: 75px;
+                }   
+        
+                .add-coffee-form {
+                    max-width: 400px;
+                    margin: 20px auto;
+                    padding: 20px;
+                    background-color: #483434;
+                    color: #EED6C4;
+                    border: 1px solid #EED6C4;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+        
+                label {
+                    display: block;
+                    margin-bottom: 8px;
+                }
+        
+                input {
+                    width: 100%;
+                    padding: 8px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                    background-color: #EED6C4;
+                    border: none;
+                    border-radius: 40px;
+                    
+                }
+        
+                button {
+                    background-color: #483434;
+                    color: #FFF3E4;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    justify-content: center;
+                    display: block;
+                    margin: 0 auto;
+                    width: 100px;
+        
+                    
+                }
+        
+                button:hover {
+                    background-color: #EED6C4   ;
+                    color: #483434;
+                    text-decoration: underline;
+                }
+        
+                .main-title {
+                    text-align: center;
+                    margin-top: 40px;
+                    color: #483434;
+                    font-size: 3em;
+                    font-weight: bold;
+        
+                }
+        
+                #logout{
+                    background-color: #483434;
+                    color: #FFF3E4;
+                    cursor: pointer;
+                    justify-content: center;
+                    display: block;
+                    width: 100px;
+                    float:inline-end;
+                    padding: 1.22em;
+                    margin-top: -1%;
+                
+                }
+        
+                #logout:hover {
+                    background-color: #EED6C4;
+                    color: #483434;
+                    text-decoration: underline;
+        
+                }
+        
+                select {
+                    width: 100%;
+                    padding: 8px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                    background-color: #EED6C4;
+                    border: none;
+                    border-radius: 40px;
+                }
+
+
+                #coffeeNumber {
+                    width: 30%;
+                    margin-left: 35%;
+                    border: 1px solid #483434;
+                    
+                }
+
+                #coffeeNumberP {
+                    text-align: center;
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-top: 40px;
+                    color: #483434;
+                }
+            </style>
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+        <h1>Apollo Coffee Shop
+
+        </h1>
+    </header>
+
+        <nav>
+            <a href="customer_main.html" >Home</a>
+            <a href="customer_coffees.html" >Coffees</a>
+            <a href="customer_orders.html" >Order History</a>
+            <a href="customer_profile.html" >My Profile</a>
+            <a href="customer_give_order.html" >Give Order</a>
+            <button id="logout" type="button" onclick="logout()">Logout</button>
+    
+        </nav>
+        <h1 class="main-title">Add to Your Order</h1>
+<!--First ask how many coffee will they order-->
+        <p id="coffeeNumberP">How many coffees will you order?</p>
+        <input type="number" id="coffeeNumber" name="coffeeNumber" min="1" required>
+
+
+
+
+        <div class="add-coffee-form">
+            <form id="coffeeForm">
+                <label for="coffeeName">Coffee Name:</label>
+                <input type="text" id="coffeeName" name="coffeeName" required>
+    
+                <label for="coffeeImage">Coffee Image URL:</label>
+                <input type="url" id="coffeeImage" name="coffeeImage" required>
+    
+                <label for="coffeePrice">Coffee Price (TL):</label>
+                <input type="number" id="coffeePrice" name="coffeePrice" step="0.01" required>
+    
+                <label for="coffeeSize">Coffee Size:</label>
+                <select id="coffee-size" name="coffee-size">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
+    
+    
+                <button id="addCoffee" type="button" onclick="add_coffee()">Add</button>
+                
+            </form>
+
+
+        </div>
+        <button id="addCoffee" type="button" onclick="add_coffee()">Submit Order</button>
+
+    
+        <script>
+    
+            function add_coffee() {
+            
+                var coffee_name = document.getElementById("coffeeName").value;
+                var coffee_link = document.getElementById("coffeeImage").value;
+                var coffee_price = document.getElementById("coffeePrice").value;
+                var coffee_size = document.getElementById("coffee-size").value;
+    
+                if (coffee_name == "" || coffee_link == "" || coffee_price == "" || coffee_size == "") {
+                    alert("Please fill all the fields!");
+                    return;
+                }
+    
+                const dataToSend = {
+                    "name": coffee_name,
+                    "link": coffee_link,
+                    "price": coffee_price,
+                    "size": coffee_size,
+                  };
+    
+                  const token = localStorage.getItem("token").replace('"', '').replace('"', '');
+                  console.log   ('Bearer ' + token);
+                
+    
+                fetch (`http://127.0.0.1:5000/admin/add-coffee`, 
+    
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(dataToSend),
+                })
+    
+            .then(response => response.json())
+            .then(data => {
+    
+                alert("Coffee added successfully!");
+                window.location.href = "admin_add_coffee.html"; 
+            })
+    
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("Error! Please try again.");
+            });
+        }
+    
+    
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "../index.html";
+    
+        }
+
+
+
+        function logout() {
+            localStorage.removeItem("customer_token");
+            localStorage.removeItem("customer_id");
+            window.location.href = "../index.html";
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

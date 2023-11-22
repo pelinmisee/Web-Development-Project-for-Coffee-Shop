@@ -180,6 +180,7 @@ body {
             <a href="customer_coffees.html" >Coffees</a>
             <a href="customer_orders.html" >Order History</a>
             <a href="customer_profile.html" >My Profile</a>
+            <a href="customer_give_order.html" >Give Order</a>
             <button id="logout" type="button" onclick="logout()">Logout</button>
     
         </nav>
@@ -193,7 +194,7 @@ body {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token').replace('"', '').replace('"', '')
+                'Authorization': 'Bearer ' + localStorage.getItem('customer_token').replace('"', '').replace('"', '')
             }
         })
 
@@ -210,19 +211,11 @@ body {
                         <h2>${data[key].name}</h2>
                         <p>Price: ${data[key].price} ₺</p>
                         <p>Size: ${data[key].size}</p>
-                        <button id="give-order" type="button" onclick="give_order('${data[key].name}')">Order</button>
                     </div>
                 `;
 
             })
         })
-
-        function give_order(coffee_key) {
-            console.log("your order is: " + coffee_key);
-        }
-
-
-
 
         function logout() {
             localStorage.removeItem("customer_token");

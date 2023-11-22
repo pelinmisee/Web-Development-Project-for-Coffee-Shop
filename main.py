@@ -331,18 +331,17 @@ def give_order():
         data = request.get_json()
         customer_id = data["customer_id"]
         coffee_id = data["coffee_id"]
-        quantity = data["quantity"]
+        size = data["quantity"]
         
         db.child("orders").push({
             "customer_id": customer_id,
             "coffee_id": coffee_id,
-            "quantity": quantity,
-            "status": "Order given",
+            "size": size,
             "order_date": time.strftime("%d/%m/%Y %H:%M:%S")
             
         })
         
-        return jsonify({"message": "Order given successfully"}), 201  # Created
+        return jsonify({"message": "Order given successfully"}), 201 
     
     except Exception as e:
         return f"An Error Occured: {e}"
