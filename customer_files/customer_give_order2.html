@@ -125,12 +125,38 @@
         
                     
                 }
+
         
                 button:hover {
                     background-color: #6B4F4F   ;
                     color: #483434;
                     text-decoration: underline;
                 }
+
+                .button-container {
+                    display: flex;
+                    justify-content: center;
+                }
+                
+                .button-container button {
+                    background-color: #EED6C4;
+                    color: #483434;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    width: 100px;
+                    margin-bottom: 3px;
+                }
+
+                .button-container button:hover {
+                    background-color: #6B4F4F   ;
+                    color: #483434;
+                    text-decoration: underline;
+                }
+
+
+
                 .main-title {
                     text-align: center;
                     margin-top: 40px;
@@ -185,6 +211,39 @@
                     margin-top: 40px;
                     color: #483434;
                 }
+
+                #ordertable {
+                    font-family: Arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+            
+                #ordertable th, #ordertable td {
+                    border: 1px solid #ddd;
+                    padding: 5px;
+                    text-align: center;
+                    white-space: nowrap; /* Prevent text wrapping */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 33%;
+                }
+
+                #ordertable td {
+                    background-color: #EED6C4;
+                    color: #483434;
+                }
+
+                #ordertable td:hover {
+                    background-color: #6B4F4F;
+                    color: #EED6C4;
+                }
+            
+                #ordertable th {
+                    background-color: #483434;
+                    color: #FFF3E4;
+                }
+            
+               
             </style>
 </head>
 
@@ -218,15 +277,111 @@
                     <option value="Medium">Medium</option>
                     <option value="Large" >Large</option> </select>
                 
-                <label for="coffee_number">How Many?</label>
-                <select name="coffee_number" id="coffee_number"> </select>
+                <label for="quantity">How Many?</label>
+                <select name="quantity" id="quantity"> </select>
                 
+                <button type="button" onclick="add_coffee_to_local_storage()">Add Coffee</button>
               </form>
 
         </div>
 
+        <div class="button-container">
+            <button type="button" onclick="go_to_order()">Go to Order</button>
+
+            <p id="remain_coffee"> </p>
+            
+            <button type="button" onclick="cancel_order()">Cancel Order</button>
+    </div>
+
+        <br>
+        
+        <div id="coffee-list">
+
+        </div>
+
+
     
     <script>     
+
+        function go_to_order() {
+            if (localStorage.getItem("total_order_quantity") == 0) {
+                window.location.href = "customer_give_order3.html";
+                return;
+            }
+
+            else {
+                alert("You haven't added all the coffees you said.");
+            }
+
+        }
+
+        function cancel_order() {
+            localStorage.removeItem("total_order_quantity");
+            localStorage.removeItem("coffee_list");
+            window.location.href = "customer_give_order.html";
+        }
+
+        function add_coffee_to_local_storage() {
+
+            var coffee_size = document.getElementById("coffee_size").value;
+            var coffee_name = document.getElementById("coffee_name").value;
+            var coffee_quantity = document.getElementById("quantity").value;
+            var total_order_quantity = localStorage.getItem("total_order_quantity") - coffee_quantity;
+
+            if (coffee_size == "" || coffee_name == "" || coffee_quantity == "") {
+                alert("Please choose coffee size, coffee name and quantity.");
+            }
+
+            if (total_order_quantity < 0) {
+                alert("You can't order more than you said.");
+                return;
+            }
+
+        
+            localStorage.setItem("total_order_quantity", total_order_quantity);
+            
+            var coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
+            if (coffee_list == null) {
+                coffee_list = [];
+             }
+            coffee_list.push({ "coffee_name": coffee_name, "coffee_size": coffee_size, "coffee_quantity": coffee_quantity });
+            localStorage.setItem("coffee_list", JSON.stringify(coffee_list));
+
+            location.reload();
+
+            }
+
+        function print_order_list() {
+            var coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
+            
+            if (coffee_list == null) {
+                document.getElementById('coffee-list').innerHTML += `
+                    <p id="coffeeNumberP">You haven't added any coffee yet.</p>
+                `;
+             }
+
+            else {
+                document.getElementById('coffee-list').innerHTML += ` <table id="ordertable">
+                    <tr>
+                        <th>Coffee Name</th>
+                        <th>Coffee Size</th>
+                        <th>Coffee Quantity</th>
+                    </tr>`;
+
+                for (let i = 0; i < coffee_list.length; i++) {
+                    document.getElementById('coffee-list').innerHTML += `
+                        <table id="ordertable">
+                            <tr>
+                                <td>${coffee_list[i].coffee_name}</td>
+                                <td>${coffee_list[i].coffee_size}</td>
+                                <td>${coffee_list[i].coffee_quantity}</td>
+                            </tr>
+                        </table>  `;
+                }
+
+            }
+
+        }
     
         function coffee_options(){
             fetch (`http://127.0.0.1:5000/customer/all-coffees`, 
@@ -246,30 +401,40 @@
     
                 keys.forEach(key => {
                    document.getElementById('coffee_name').innerHTML += `
-                        <option value="${data[key].id}">${data[key].name}</option>
+                        <option value="${data[key].name}" >${data[key].name}</option>
                     `;
     
                 })})
+
         }
 
+        
         function coffee_amount(){
-            const coffee_amount_total = localStorage.getItem('coffee_amount');
+            const coffee_amount_total = localStorage.getItem('total_order_quantity');
             for (let i = 1; i <= coffee_amount_total; i++) {
-                document.getElementById('coffee_number').innerHTML += `
+                document.getElementById('quantity').innerHTML += `
                         <option value="${i}">${i}</option>
                     `;
             }
             
         }
-        
-        window.onload = coffee_options();
-        window.onload = coffee_amount();
+  
+        window.onload = function () {
+            var remainCoffeeNumber = localStorage.getItem("total_order_quantity");
+            document.getElementById("remain_coffee").innerHTML = "Add " + remainCoffeeNumber + " more coffee(s).";
 
+            coffee_options();
+            coffee_amount();
+            print_order_list();
 
+        };
+    
 
         function logout() {
             localStorage.removeItem("customer_token");
             localStorage.removeItem("customer_id");
+            localStorage.removeItem("total_order_quantity");
+            localStorage.removeItem("coffee_list");
             window.location.href = "../index.html";
         }
 

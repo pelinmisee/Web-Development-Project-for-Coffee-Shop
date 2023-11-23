@@ -317,6 +317,8 @@ def customer_login():
     except Exception as e:
         return f"An Error Occured: {e}"
     
+
+    
 #-->get all coffees
 @app.route('/customer/all-coffees', methods=['GET'])
 @customer_auth()
@@ -326,7 +328,7 @@ def get_all_coffees_customer():
         return jsonify(coffees.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-    
+
 #--> giving order
 @app.route('/customer/give-order', methods=['POST'])
 @customer_auth()

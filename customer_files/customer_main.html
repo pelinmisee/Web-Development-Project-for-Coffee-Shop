@@ -150,6 +150,8 @@ body {
     function logout() {
         localStorage.removeItem("customer_token");
         localStorage.removeItem("customer_id");
+        localStorage.removeItem("total_order_quantity");
+        localStorage.removeItem("coffee_list");
         window.location.href = "../index.html";
     }
 
