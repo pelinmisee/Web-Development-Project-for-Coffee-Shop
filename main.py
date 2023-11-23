@@ -330,28 +330,45 @@ def get_all_coffees_customer():
         return f"An Error Occured: {e}"
 
 #--> giving order
-@app.route('/customer/give-order', methods=['POST'])
+@app.route('/customer/cal-price', methods=['POST'])
 @customer_auth()
 def give_order():
     try:
         data = request.get_json()
-        customer_id = data["customer_id"]
-        coffee_id = data["coffee_id"]
-        size = data["quantity"]
+        coffee_list = data["coffee_list"]
+        price_dict = {}
+
+        coffees = db.child("coffees").get()
+        #get price if coffee exists in the coffee_list
+        for coffee in coffee_list:
+            valid_coffee_name = False
+
+            for c in coffees.each():
+                if coffee["coffee_name"] == c.val()["name"]:
+                    valid_coffee_name = True
+
+                    if coffee["coffee_size"] == "Small":
+                        price_dict[coffee["coffee_name"]] = int(c.val()["small_price"]) * int(coffee["coffee_quantity"])
+                    elif coffee["coffee_size"] == "Medium":
+                        price_dict[coffee["coffee_name"]] = int(c.val()["medium_price"]) * int(coffee["coffee_quantity"])
+                    elif coffee["coffee_size"] == "Large":
+                        price_dict[coffee["coffee_name"]] = int(c.val()["large_price"]) * int(coffee["coffee_quantity"])
+                    else:
+                        return jsonify({"message": "Invalid coffee size"}), 400
+
+                    break  # Break once a valid coffee name is found
+
+        if not valid_coffee_name:
+            return jsonify({"message": "Invalid coffee name"}), 400
+
         
-        db.child("orders").push({
-            "customer_id": customer_id,
-            "coffee_id": coffee_id,
-            "size": size,
-            "order_date": time.strftime("%d/%m/%Y %H:%M:%S")
-            
-        })
         
-        return jsonify({"message": "Order given successfully"}), 201 
-    
+        return jsonify({"message": "Price calculated successfully", "price": price_dict}), 200
+        
     except Exception as e:
         return f"An Error Occured: {e}"
-
+    
+    
 #--> customer-get
 #customerın kendi bilgilerini görebileceği route.
 @app.route('/customer/<string:customer_id>', methods=['GET'])

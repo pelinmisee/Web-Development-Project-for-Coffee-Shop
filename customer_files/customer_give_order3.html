@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Coffee Shop</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html    {
+        height: 100%;
+        }
+          
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+     background-color: #FFF3E4;
+        }
+
+
+
+        header {
+            background-color: #6B4F4F  ;
+            color: #FFF3E4;
+            text-align: center;
+            padding: 1em;
+
+        }
+
+        nav {
+            background-color: #483434;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: #FFF3E4;
+            text-decoration: none;
+            padding: 1em;
+            margin: 0 1em;
+        }
+
+        nav a:hover {
+            background-color: #EED6C4   ;
+            color: #483434;
+        }
+
+        section {
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
+
+        .section_h1 {
+            color: #483434;
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #483434;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        p {
+            color: #483434;
+            font-size: 1.2em;
+            margin-top: 50px;
+        }
+        
+        .logo {
+            width: 75px;
+            height: 75px;
+        }   
+
+
+        .coffee-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .coffee-item {
+            background-color: #EED6C4;
+            border: 4px solid #6B4F4F;
+            border-radius: 8px;
+
+
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .coffee-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .coffee-item img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        p {
+            color: #483434;
+            font-size:1.15em;
+            font-weight: bold;
+        }
+
+        #logout{
+            background-color: #483434;
+            color: #FFF3E4;
+            cursor: pointer;
+            justify-content: center;
+            display: block;
+            width: 100px;
+            float:inline-end;
+            padding: 1.22em;
+            margin-top: -1%;
+        
+        }
+
+        #logout:hover {
+            background-color: #EED6C4;
+            color: #483434;
+            text-decoration: underline;
+
+        }
+
+        button {
+            background-color: #EED6C4;
+            color: #483434;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            justify-content: center;
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+
+            
+        }
+
+
+        button:hover {
+            background-color: #6B4F4F   ;
+            color: #483434;
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .button-container button {
+            background-color: #EED6C4;
+            color: #483434;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100px;
+            margin-bottom: 3px;
+        }
+
+        .button-container button:hover {
+            background-color: #6B4F4F   ;
+            color: #483434;
+            text-decoration: underline;
+        }
+
+
+
+        #profile-container {
+            background-color: #6B4F4F;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        #profile-container h2 {
+            color: #333333;
+        }
+        
+        #price-container {
+            background-color: #6B4F4F;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        #price-container h2 {
+            color: #333333;
+        }
+        
+
+
+        #order_details {
+            margin-top: 10px;
+            color: #555555;
+        }
+        
+
+        #ordertable {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        #ordertable th, #ordertable td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 33%;
+        }
+
+        #ordertable td {
+            background-color: #EED6C4;
+            color: #483434;
+        }
+
+        #ordertable td:hover {
+            background-color: #6B4F4F;
+            color: #EED6C4;
+        }
+    
+        #ordertable th {
+            background-color: #483434;
+            color: #FFF3E4;
+        }
+    
+        select {
+            width: 50%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            background-color: #EED6C4;
+            border: none;
+            border-radius: 40px;
+            margin-top: 16px;
+        }
+
+        #ordertable2 {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        #ordertable2 th, #ordertable td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 33%;
+        }
+
+        #ordertable2 td {
+            background-color: #EED6C4;
+            color: #483434;
+        }
+
+        #ordertable2 td:hover {
+            background-color: #6B4F4F;
+            color: #EED6C4;
+        }
+    
+        #ordertable2 th {
+            background-color: #483434;
+            color: #FFF3E4;
+        }
+            </style>
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+        <h1>Apollo Coffee Shop
+
+        </h1>
+    </header>
+
+        <nav>
+            <a href="customer_main.html" >Home</a>
+            <a href="customer_coffees.html" >Coffees</a>
+            <a href="customer_orders.html" >Order History</a>
+            <a href="customer_profile.html" >My Profile</a>
+            <a href="customer_give_order.html" >Give Order</a>
+            <button id="logout" type="button" onclick="logout()">Logout</button>
+    
+        </nav>
+
+
+        <!--order details from localstorage coffee-list-->
+        <section>
+            <div id="profile-container">
+                
+            </div>
+
+            <label for="delivery_time" >Delivery Time</label>
+            <select name="delivery_time" id="delivery_time">
+                <option value="Now">Now</option>
+                <option value="35 Minutes">in 35 Minutes</option>
+                <option value="Tomorrow" >Tomorrow</option> </select>
+
+
+            <div class="button-container">
+                <button id="confirm_order" onclick="confirm_order()">Go To Payment</button>
+                <button id="cancel_order" onclick="cancel_order()">Cancel Order</button>
+            </div>
+
+            <!--price-->
+            <div id="price-container">
+                <table id="ordertable2">
+                    <tr>
+                        <th>Coffee Name</th>
+                        <th>Price</th>
+                    </tr>
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+
+
+
+    <script>
+
+        function cancel_order() {
+            localStorage.removeItem("coffee_list");
+            localStorage.removeItem("total_order_quantity");
+            window.location.href = "customer_give_order.html";
+        }
+
+        function confirm_order() {
+            const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
+            console.log(coffee_list);
+        fetch('http://127.0.0.1:5000/customer/cal-price', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("customer_token").replace('"', '').replace('"', '')
+        },
+        body: JSON.stringify({
+            coffee_list: coffee_list
+        })
+    })
+
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+}
+
+        function order_details() {
+            var customer_id = localStorage.getItem("customer_id");
+            var coffee_list = localStorage.getItem("coffee_list");
+            var total_order_quantity = localStorage.getItem("total_order_quantity");
+        }
+
+
+            document.getElementById('profile-container').innerHTML += ` <table id="ordertable">
+            <tr>
+                <th>Coffee Name</th>
+                <th>Amount</th>
+                <th>Size</th>
+            </tr>
+
+            </table>`;
+            var coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
+            var total_order_quantity = localStorage.getItem("total_order_quantity");
+            var total_price = 0;
+            for (var i = 0; i < coffee_list.length; i++) {
+                var coffee_name = coffee_list[i].coffee_name;
+                var coffee_quantity = coffee_list[i].coffee_quantity;
+                var coffee_size = coffee_list[i].coffee_size;
+                document.getElementById('ordertable').innerHTML += `<tr>
+                <td>${coffee_name}</td>
+                <td>${coffee_quantity}</td>
+                <td>${coffee_size}</td>
+            </tr> 
+        </table>`;  
+            }
+            
+        
+
+
+        function logout() {
+            localStorage.removeItem("customer_token");
+            localStorage.removeItem("customer_id");
+            localStorage.removeItem("total_order_quantity");
+            localStorage.removeItem("coffee_list");
+            window.location.href = "../index.html";
+        }
+
+
+        window.onload = function () {
+            order_details();
+        };
+
+    </script>
+
+    
+
+
+</body>
+
+</html>
