@@ -223,6 +223,7 @@
     
         function nextStep() {
             var coffee_amount = document.getElementById("total_order_quantity").value;
+            localStorage.removeItem("coffee_list");
 
             if (coffee_amount == "") {
                 alert("Please enter the number of coffees you want to order.");

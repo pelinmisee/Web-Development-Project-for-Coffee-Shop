@@ -432,6 +432,7 @@ body {
             const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
             const total_price = localStorage.getItem("total_price");
             const delivery_time = document.getElementById("delivery_time").value;
+            localStorage.removeItem("total_price");
 
             const order = {
                 customer_id: customer_id,
