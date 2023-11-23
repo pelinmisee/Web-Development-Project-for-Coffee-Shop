@@ -364,6 +364,7 @@ body {
         function cancel_order() {
             localStorage.removeItem("coffee_list");
             localStorage.removeItem("total_order_quantity");
+            localStorage.removeItem("total_price");
             window.location.href = "customer_give_order.html";
         }
 
@@ -457,7 +458,8 @@ body {
                 localStorage.removeItem("total_order_quantity");
                 localStorage.removeItem("total_price");
                 localStorage.removeItem("delivery_time");
-                alert("Thank you for your order! Your order ID is: " + data.order_id)
+                localStorage.setItem("order_id", data.order_id);
+                window.location.href = "customer_give_order4.html";
             })
 
             .catch((error) => {

@@ -339,15 +339,12 @@ def call_price():
         price_dict = {}
 
         coffees = db.child("coffees").get()
-        #get price if coffee exists in the coffee_list
         for coffee in coffee_list:
             valid_coffee_name = False
-            print(coffee)
             for c in coffees.each():
                 if coffee["coffee_name"] == c.val()["name"]:
                     valid_coffee_name = True
                     
-                    #also add coffee quantity to the price dict
                     
                     
 
@@ -398,7 +395,6 @@ def give_order():
         price = data["total_price"]
         delivery_time = data["delivery_time"]
         order_time = time.strftime("%d/%m/%Y %H:%M:%S")
-        print(order_time)
         
         db.child("orders").push({
             "customer_id": customer_id,
@@ -408,7 +404,6 @@ def give_order():
             "order_time": order_time
         })
         
-       #get all orders in gb
         orders = db.child("orders").get()
         order_id = ""
         for order in orders.each():
@@ -424,7 +419,6 @@ def give_order():
 
     
 #--> customer-get
-#customerın kendi bilgilerini görebileceği route.
 @app.route('/customer/<string:customer_id>', methods=['GET'])
 @customer_auth()
 def get_customer(customer_id):
