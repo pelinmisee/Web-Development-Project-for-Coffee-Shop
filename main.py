@@ -110,7 +110,7 @@ def admin_login():
         data = request.get_json()
         email = data['email']
         password = data['password']
-        
+
         if email == "" or password == "":
             return jsonify({"message": "Please fill all the fields"}), 400
         
@@ -427,6 +427,13 @@ def get_customer(customer_id):
         return jsonify(customer.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+    
+    
+#--> customer-update --> If I have time I will do it    
+#--> customer order history
+#-->admin get all orders
+#-->admin get last 10 orders
+
     
 if __name__ == '__main__':
     app.run(debug=True)
