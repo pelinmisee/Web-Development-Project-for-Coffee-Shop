@@ -283,6 +283,7 @@ body {
         #ordertable2 td {
             background-color: #EED6C4;
             color: #483434;
+            width: 33%;
         }
 
         #ordertable2 td:hover {
@@ -294,6 +295,8 @@ body {
             background-color: #483434;
             color: #FFF3E4;
         }
+
+
             </style>
 </head>
 
@@ -330,20 +333,21 @@ body {
 
 
             <div class="button-container">
-                <button id="confirm_order" onclick="confirm_order()">Go To Payment</button>
+                <button id="confirm_order" onclick="confirm_order()">View Payment Details</button>
                 <button id="cancel_order" onclick="cancel_order()">Cancel Order</button>
             </div>
 
             <!--price-->
             <div id="price-container">
                 <table id="ordertable2">
-                    <tr>
-                        <th>Coffee Name</th>
-                        <th>Price</th>
-                    </tr>
+                
                 </table>
 
             </div>
+
+            <button id="submit_order" onclick="order_create()">Submit Order</button>
+
+
 
 
         </section>
@@ -365,7 +369,6 @@ body {
 
         function confirm_order() {
             const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
-            console.log(coffee_list);
         fetch('http://127.0.0.1:5000/customer/cal-price', {
         method: 'POST',
         headers: {
@@ -379,9 +382,92 @@ body {
 
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-    })
+        price_list = data.price;
+        document.getElementById('price-container').innerHTML += ` <table id="ordertable2">
+        <tr>
+            <th>Coffee Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </table>`;
+
+        //search in each key of price_list
+        var total_price = 0;
+        keys = Object.keys(price_list);
+        keys.forEach(key => {
+            total_price += parseInt(price_list[key].price);
+            document.getElementById('price-container').innerHTML += `
+            <table id="ordertable2">
+            <tr>
+            <td>${price_list[key].coffee_name}</td>
+            <td>${price_list[key].quantity}</td>
+            <td>${price_list[key].price}</td>
+        </tr>
+    </table>`;
+    
+        });
+        localStorage.setItem("total_price", total_price);
+        document.getElementById('price-container').innerHTML += `
+        
+        <table id="ordertable2">
+        <tr>
+            <td></td>
+            <td>Total Price</td>
+            <td>${total_price}</td>
+        </tr>
+    </table>
+    `;
+
+    
 }
+
+    )
+
+
+}
+
+        function order_create() {
+            const customer_id = localStorage.getItem("customer_id").replace('"', '').replace('"', '');
+            const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
+            const total_price = localStorage.getItem("total_price");
+            const delivery_time = document.getElementById("delivery_time").value;
+
+            const order = {
+                customer_id: customer_id,
+                coffee_list: coffee_list,
+                total_price: total_price,
+                delivery_time: delivery_time
+            }
+
+
+            fetch(`http://127.0.0.1:5000/customer/give-order`, 
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("customer_token").replace('"', '').replace('"', '')
+                },
+                body: JSON.stringify(order)
+
+            })
+
+            .then(response => response.json())
+            .then(data => {
+                localStorage.removeItem("coffee_list");
+                localStorage.removeItem("total_order_quantity");
+                localStorage.removeItem("total_price");
+                localStorage.removeItem("delivery_time");
+                alert("Thank you for your order! Your order ID is: " + data.order_id)
+            })
+
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+
+
+        }
+
 
         function order_details() {
             var customer_id = localStorage.getItem("customer_id");
@@ -390,7 +476,7 @@ body {
         }
 
 
-            document.getElementById('profile-container').innerHTML += ` <table id="ordertable">
+            document.getElementById('profile-container').innerHTML += ` <table id="ordertable2">
             <tr>
                 <th>Coffee Name</th>
                 <th>Amount</th>
@@ -405,13 +491,14 @@ body {
                 var coffee_name = coffee_list[i].coffee_name;
                 var coffee_quantity = coffee_list[i].coffee_quantity;
                 var coffee_size = coffee_list[i].coffee_size;
-                document.getElementById('ordertable').innerHTML += `<tr>
+                document.getElementById('ordertable2').innerHTML += `<tr>
                 <td>${coffee_name}</td>
                 <td>${coffee_quantity}</td>
                 <td>${coffee_size}</td>
             </tr> 
         </table>`;  
             }
+            
             
         
 

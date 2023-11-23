@@ -332,7 +332,7 @@ def get_all_coffees_customer():
 #--> giving order
 @app.route('/customer/cal-price', methods=['POST'])
 @customer_auth()
-def give_order():
+def call_price():
     try:
         data = request.get_json()
         coffee_list = data["coffee_list"]
@@ -342,17 +342,35 @@ def give_order():
         #get price if coffee exists in the coffee_list
         for coffee in coffee_list:
             valid_coffee_name = False
-
+            print(coffee)
             for c in coffees.each():
                 if coffee["coffee_name"] == c.val()["name"]:
                     valid_coffee_name = True
+                    
+                    #also add coffee quantity to the price dict
+                    
+                    
 
                     if coffee["coffee_size"] == "Small":
-                        price_dict[coffee["coffee_name"]] = int(c.val()["small_price"]) * int(coffee["coffee_quantity"])
+                        price_dict[coffee["key"]] = {
+                            "coffee_name": coffee["coffee_name"],
+                            "price": int(c.val()["small_price"]) * int(coffee["coffee_quantity"]),
+                            "quantity": coffee["coffee_quantity"]
+                        }
+                        
                     elif coffee["coffee_size"] == "Medium":
-                        price_dict[coffee["coffee_name"]] = int(c.val()["medium_price"]) * int(coffee["coffee_quantity"])
+                        price_dict[coffee["key"]] = {
+                            "coffee_name": coffee["coffee_name"],
+                            "price": int(c.val()["medium_price"]) * int(coffee["coffee_quantity"]),
+                            "quantity": coffee["coffee_quantity"]
+                        }
                     elif coffee["coffee_size"] == "Large":
-                        price_dict[coffee["coffee_name"]] = int(c.val()["large_price"]) * int(coffee["coffee_quantity"])
+                        price_dict[coffee["key"]] = {
+                            "coffee_name": coffee["coffee_name"],
+                            "price": int(c.val()["large_price"]) * int(coffee["coffee_quantity"]),
+                            "quantity": coffee["coffee_quantity"]
+                            
+                        }
                     else:
                         return jsonify({"message": "Invalid coffee size"}), 400
 
@@ -368,6 +386,42 @@ def give_order():
     except Exception as e:
         return f"An Error Occured: {e}"
     
+    
+#--> giving order
+@app.route('/customer/give-order', methods=['POST'])
+@customer_auth()
+def give_order():
+    try:
+        data = request.get_json()
+        customer_id = data["customer_id"]
+        coffee_list = data["coffee_list"]
+        price = data["total_price"]
+        delivery_time = data["delivery_time"]
+        order_time = time.strftime("%d/%m/%Y %H:%M:%S")
+        print(order_time)
+        
+        db.child("orders").push({
+            "customer_id": customer_id,
+            "coffee_list": coffee_list,
+            "price": price,
+            "delivery_time": delivery_time,
+            "order_time": order_time
+        })
+        
+       #get all orders in gb
+        orders = db.child("orders").get()
+        order_id = ""
+        for order in orders.each():
+            if order.val()["order_time"] == order_time and order.val()["customer_id"] == customer_id:
+                order_id = order.key()
+                break
+            
+        return jsonify({"message": "Order given successfully", "order_id": order_id}), 201
+       
+       
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
     
 #--> customer-get
 #customerın kendi bilgilerini görebileceği route.
