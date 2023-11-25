@@ -284,7 +284,6 @@
     </header>
 
         <nav>
-            <a href="customer_main.html" >Home</a>
             <a href="customer_coffees.html" >Coffees</a>
             <a href="customer_orders.html" >Order History</a>
             <a href="customer_profile.html" >My Profile</a>
@@ -358,15 +357,20 @@
             var coffee_quantity = document.getElementById("quantity").value;
             var total_order_quantity = localStorage.getItem("total_order_quantity") - coffee_quantity;
 
-            if (coffee_size == "" || coffee_name == "" || coffee_quantity == "") {
-                alert("Please choose coffee size, coffee name and quantity.");
+            if (coffee_size == "" || coffee_name == "") {
+                alert("Please choose coffee size, coffee name.");
+                return;
+            }
+
+            if (coffee_quantity == "") {
+                alert("You have chosen all the coffee you said.");
+                return;
             }
 
             if (total_order_quantity < 0) {
                 alert("You can't order more than you said.");
                 return;
             }
-
         
             localStorage.setItem("total_order_quantity", total_order_quantity);
             

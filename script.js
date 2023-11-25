@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                  LOGIN FUNCTIONS                                                             //                                            
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 function admin_login(event) {
     event.preventDefault();
@@ -19,13 +23,12 @@ function admin_login(event) {
     })
     .then(data => {
         localStorage.setItem("admin_token", JSON.stringify(data.access_token));
-        window.location.href = "admin_main.html";
+        window.location.href = "admin_coffees.html";
     })
     .catch(error => {
-        // Handle error (e.g., display an error message to the user)
         console.error(error.message);
         alert("Invalid email or password. Please try again.");
-        window.location.href = "admin_signin.html"; // or whatever your sign-in page URL is
+        window.location.href = "admin_signin.html"; 
     
     });
 }
@@ -51,7 +54,7 @@ function customer_login(event) {
     .then(data => {
         localStorage.setItem("customer_token", JSON.stringify(data.access_token));
         localStorage.setItem("customer_id", JSON.stringify(data.customer_id));
-        window.location.href = "customer_main.html";
+        window.location.href = "customer_coffees.html";
     })
     .catch(error => {
         console.error(error.message);

@@ -94,6 +94,8 @@ body {
             justify-content: space-around;
             flex-wrap: wrap;
             margin: 20px;
+            padding-bottom: 5%;
+
         }
 
         .coffee-item {
@@ -202,7 +204,6 @@ body {
     </header>
 
         <nav>
-            <a href="#" >Home</a>
             <a href="customer_coffees.html" >Coffees</a>
             <a href="customer_orders.html" >Order History</a>
             <a href="customer_profile.html" >My Profile</a>
@@ -214,6 +215,8 @@ body {
     <div class="coffee-list" id="coffee-list"> </div>
 
     <script>
+
+        function get_coffees() {
 
         fetch (`http://127.0.0.1:5000/customer/all-coffees`, 
         {
@@ -242,6 +245,7 @@ body {
 
             })
         })
+    }
 
         function logout() {
             localStorage.removeItem("customer_token");
@@ -249,6 +253,10 @@ body {
             localStorage.removeItem("total_order_quantity");
             localStorage.removeItem("coffee_list");
             window.location.href = "../index.html";
+        }
+
+        window.onload = function () {
+            get_coffees();
         }
 
 
