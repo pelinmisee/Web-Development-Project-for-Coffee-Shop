@@ -12,20 +12,20 @@
 <body>
     <div class="navbar">
 
-    <header>
-        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
-        <h1>Apollo Coffee Shop
+        <header>
+            <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+            <h1>Apollo Coffee Shop
 
-        </h1>
-    </header>
+            </h1>
+        </header>
 
-    <nav>
-        <a href="admin_coffees.html" >Coffees</a>
-        <a href="admin_add_coffee.html" >Add Coffee</a>
-        <a href="admin_orders.html" >Orders</a>
-        <button id="logout" type="button" onclick="logout()">Logout</button>
+        <nav>
+            <a href="admin_coffees.html">Coffees</a>
+            <a href="admin_add_coffee.html">Add Coffee</a>
+            <a href="admin_orders.html">Orders</a>
+            <button id="logout" type="button" onclick="logout()">Logout</button>
 
-    </nav>
+        </nav>
     </div>
 
 
@@ -55,7 +55,7 @@
     <script>
 
         function add_coffee() {
-        
+
             var coffee_name = document.getElementById("coffeeName").value;
             var coffee_link = document.getElementById("coffeeImage").value;
             var coffee_small_price = document.getElementById("small_price").value;
@@ -72,51 +72,51 @@
                 "link": coffee_link,
                 "small_price": coffee_small_price,
                 "medium_price": coffee_medium_price,
-                "large_price":  coffee_large_price,
-              };
+                "large_price": coffee_large_price,
+            };
 
-              const token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
-              console.log   ('Bearer ' + token);
-            
-
-            fetch (`http://127.0.0.1:5000/admin/add-coffee`, 
-
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify(dataToSend),
-            })
-
-        .then(response => response.json())
-        .then(data => {
+            const token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
+            console.log('Bearer ' + token);
 
 
+            fetch(`http://127.0.0.1:5000/admin/add-coffee`,
 
-            if (data.message == "Coffee with this name already exists") {
-                alert("Coffee already exists!");
-                return;
-            }
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(dataToSend),
+                })
 
-
-            alert("Coffee added successfully!");
-            window.location.href = "admin_add_coffee.html"; 
-        })
-
-        .catch((error) => {
-            console.error('Error:', error);
-            alert("Error! Please try again.");
-        });
-    }
+                .then(response => response.json())
+                .then(data => {
 
 
-    function logout() {
-        localStorage.removeItem("admin_token");
-        window.location.href = "../index.html";
 
-    }
+                    if (data.message == "Coffee with this name already exists") {
+                        alert("Coffee already exists!");
+                        return;
+                    }
+
+
+                    alert("Coffee added successfully!");
+                    window.location.href = "admin_add_coffee.html";
+                })
+
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Error! Please try again.");
+                });
+        }
+
+
+        function logout() {
+            localStorage.removeItem("admin_token");
+            window.location.href = "../index.html";
+
+        }
 
     </script>
 
@@ -124,7 +124,8 @@
 <footer>
     <p>Copyright © Apollo Coffee 2023
 
-        Pelin Mişe 
+        Pelin Mişe
     </p>
 </footer>
+
 </html>
