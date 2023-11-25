@@ -210,11 +210,20 @@ body {
             color: #EED6C4;
             font-size: smaller;
         }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
             </style>
         
 </head>
 
 <body>
+    <div class="navbar">
+
     <header>
         <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
         <h1>Apollo Coffee Shop
@@ -230,6 +239,7 @@ body {
             <button id="logout" type="button" onclick="logout()">Logout</button>
     
         </nav>
+    </div>
 
     <div class="coffee-list" id="coffee-list"> </div>
 

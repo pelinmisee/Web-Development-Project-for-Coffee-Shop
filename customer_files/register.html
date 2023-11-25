@@ -194,11 +194,20 @@ body {
             font-size: smaller;
         }
 
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
         </style>
 
 </head>
 
 <body>
+    <div class="navbar">
+
     <header>
         <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
         <h1>Apollo Coffee Shop
@@ -213,7 +222,7 @@ body {
         <a href="..\admin_files\admin_signin.html" >Admin Sign In</a>
         <a href="..\customer_files\register.html">Register</a>
     </nav>
-
+    </div>
     <div class="wrapper">
         <form>
             <h1>Customer Register</h1>

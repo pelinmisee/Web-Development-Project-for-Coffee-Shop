@@ -102,11 +102,20 @@ footer p {
     font-size: smaller;
 }
 
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
 
             </style>
 </head>
 
 <body>
+    <div class="navbar">
+
     <header>
         <img class="logo" src="..\WEB_HW3\logo.png" alt="" style="float: left; margin-left: 10px;">
         <h1>Apollo Coffee Shop
@@ -121,7 +130,7 @@ footer p {
         <a href="./admin_files/admin_signin.html" >Admin Sign In</a>
         <a href="./customer_files/register.html">Register</a>
     </nav>
-
+    </div>
     <section id="welcome">
         <h1 class="section_h1">Welcome to Apollo Coffee Shop</h1>
         <p id="welcome-message">

@@ -314,11 +314,19 @@ body {
             color: #FFF3E4;
         }
 
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
 
             </style>
 </head>
 
 <body>
+    <div class="navbar">
+
     <header>
         <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
         <h1>Apollo Coffee Shop
@@ -335,6 +343,7 @@ body {
             <button id="logout" type="button" onclick="logout()">Logout</button>
     
         </nav>
+        <div class="navbar">
 
 
         <!--order details from localstorage coffee-list-->
