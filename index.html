@@ -124,7 +124,6 @@ footer p {
     </header>
 
     <nav>
-        <a href="#about" onclick="showSection('about')">About</a>
         <a href="index.html" onclick="showSection('welcome')">Home</a>
         <a href="./customer_files/customer_signin.html" >Customer Sign In</a>
         <a href="./admin_files/admin_signin.html" >Admin Sign In</a>
@@ -148,16 +147,6 @@ footer p {
     </section>
 
     
-
-    <script>
-        function showSection(sectionId) {
-            document.getElementById('welcome').style.display = 'none';
-            document.getElementById('about').style.display = 'none';
-        
-            document.getElementById(sectionId).style.display = 'block';
-        }
-    </script>
-
     <script>
         const welcomeMessage = document.getElementById('welcome-message');
         const messageText = welcomeMessage.textContent;
