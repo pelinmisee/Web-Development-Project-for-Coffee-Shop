@@ -1,11 +1,13 @@
 import pyrebase
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import functools
-from flask_jwt_extended import verify_jwt_in_request, get_jwt, create_access_token, JWTManager, jwt_required
+from flask_jwt_extended import verify_jwt_in_request, create_access_token, JWTManager, jwt_required, get_jwt_identity
 import secrets
 import time
 
+########################################################################################################################################################################
+#                                                                       DATABASE CONFIGURATION                                                                         #
+########################################################################################################################################################################
 
 
 firebaseConfig = {
@@ -26,35 +28,10 @@ app.config["JWT_SECRET_KEY"] = secret_key
 jwt = JWTManager(app)
 CORS(app)
 
+########################################################################################################################################################################
+#                                                                       ADMIN ROUTES                                                                                   #
+########################################################################################################################################################################
 
-#--> AUTHENTICATIONS
-def admin_auth():
-    def wrapper(f):
-        @functools.wraps(f)
-        def decorator(*args, **kwargs):
-            verify_jwt_in_request()
-            claims = get_jwt()
-            if claims['sub']['type'] != 'admin':
-                return {"message": "Invalid token [From Decorator]"}, 403
-            return f(*args, **kwargs)
-        return decorator
-    return wrapper
-
-def customer_auth():
-    def wrapper(f):
-        @functools.wraps(f)
-        def decorator(*args, **kwargs):
-            verify_jwt_in_request()
-            claims = get_jwt()
-            if claims['sub']['type'] != 'customer':
-                return {"message": "Invalid token [From Decorator]"}, 403
-            return f(*args, **kwargs)
-        return decorator
-    return wrapper
-
-
-#--> ADMIN
-#-->admin_register
 @app.route('/admin/register', methods=['POST'])
 def admin_register():
     name = ""
@@ -100,7 +77,7 @@ def admin_register():
     except Exception as e:
         return f"An Error Occured: {e}"
     
-#--> Login
+
 @app.route('/admin/login', methods=['POST'])
 def admin_login():
     email = ""
@@ -127,11 +104,21 @@ def admin_login():
     except Exception as e:
         return f"Login failed: {e}"
 
-#-->admin add coffee
 @app.route('/admin/add-coffee', methods=['POST'])
-@admin_auth()
-
+@jwt_required()
 def add_coffee():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
     try:
         data = request.get_json()
         coffee_image = data["link"]
@@ -159,10 +146,21 @@ def add_coffee():
     except Exception as e:
         return f"An Error Occured: {e}"
     
-#--> admin update coffee
 @app.route('/admin/update-coffee', methods=['PUT'])
-@admin_auth()
+@jwt_required()
 def update_coffee():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
     try:
         data = request.get_json()
         coffee_image = data["link"]
@@ -185,10 +183,21 @@ def update_coffee():
     except Exception as e:
         return f"An Error Occured: {e}"
 
-#-->admin delete coffee
 @app.route('/admin/delete-coffee', methods=['DELETE'])
-@admin_auth()
+@jwt_required()
 def delete_coffee():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
     try:
         data = request.get_json()
         coffee_id = data["id"]
@@ -200,20 +209,45 @@ def delete_coffee():
     except Exception as e:
         return f"An Error Occured: {e}"
 
-#-->all coffees
 @app.route('/admin/all-coffees', methods=['GET'])
-@admin_auth()
+@jwt_required()
 def get_all_coffees_admin():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+    
     try:
         coffees = db.child("coffees").get()
         return jsonify(coffees.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
     
-#--> Admin get all orders
 @app.route('/admin/all-orders', methods=['GET'])
-@admin_auth()
+@jwt_required()
 def get_all_orders_admin():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
+    
+    
     try:
         orders = db.child("orders").get()
         
@@ -225,8 +259,20 @@ def get_all_orders_admin():
         return f"An Error Occured: {e}"
     
 @app.route('/admin/last-10-orders', methods=['GET'])
-@admin_auth()
+@jwt_required()
 def get_last_10_orders_admin():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
     try:
         orders = db.child("orders").get()
         last_10_orders = {}
@@ -234,7 +280,6 @@ def get_last_10_orders_admin():
         if len(orders.val()) == 0:
             return jsonify({"message": "No orders found"}), 400
         
-        #start from last order and get 10 orders
         count = 0
         for order in reversed(orders.each()):
             if count == 10:
@@ -247,9 +292,11 @@ def get_last_10_orders_admin():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+########################################################################################################################################################################
+#                                                                       CUSTOMER ROUTES                                                                                #
+########################################################################################################################################################################
 
-#--> CUSTOMER
-#-->customer_register
+
 @app.route('/customer/register', methods=['POST'])
 def customer_register():
     name = ""
@@ -297,7 +344,6 @@ def customer_register():
     except Exception as e:
         return f"An Error Occured: {e}"
     
-#-->customer_login
 @app.route('/customer/login', methods=['POST'])
 def customer_login():
     email = ""
@@ -328,20 +374,43 @@ def customer_login():
     
 
     
-#-->get all coffees
 @app.route('/customer/all-coffees', methods=['GET'])
-@customer_auth()
+@jwt_required()
 def get_all_coffees_customer():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "customer":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
     try:
         coffees = db.child("coffees").get()
         return jsonify(coffees.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 
-#--> giving order
 @app.route('/customer/cal-price', methods=['POST'])
-@customer_auth()
+@jwt_required()
 def call_price():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "customer":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
+    
     try:
         data = request.get_json()
         coffee_list = data["coffee_list"]
@@ -353,9 +422,6 @@ def call_price():
             for c in coffees.each():
                 if coffee["coffee_name"] == c.val()["name"]:
                     valid_coffee_name = True
-                    
-                    
-                    
 
                     if coffee["coffee_size"] == "Small":
                         price_dict[coffee["key"]] = {
@@ -380,23 +446,32 @@ def call_price():
                     else:
                         return jsonify({"message": "Invalid coffee size"}), 400
 
-                    break  # Break once a valid coffee name is found
+                    break
 
         if not valid_coffee_name:
             return jsonify({"message": "Invalid coffee name"}), 400
 
-        
-        
         return jsonify({"message": "Price calculated successfully", "price": price_dict}), 200
         
     except Exception as e:
         return f"An Error Occured: {e}"
     
     
-#--> giving order
 @app.route('/customer/give-order', methods=['POST'])
-@customer_auth()
+@jwt_required()
 def give_order():
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "customer":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
     try:
         data = request.get_json()
         customer_id = data["customer_id"]
@@ -426,21 +501,42 @@ def give_order():
     except Exception as e:
         return f"An Error Occured: {e}"
 
-    
-#--> customer-get
 @app.route('/customer/<string:customer_id>', methods=['GET'])
-@customer_auth()
+@jwt_required()
 def get_customer(customer_id):
+    
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "customer":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
+    
     try:
         customer = db.child("customers").child(customer_id).get()
         return jsonify(customer.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 
-#-->customer see hisd/her own order history
 @app.route('/customer/order-history/<string:customer_id>', methods=['GET'])
-@customer_auth()
+@jwt_required()
 def get_order_history(customer_id):
+
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+        
+        if user_type != "customer":
+            return jsonify({"message": "Invalid token"}), 400
+        
+    
+    except Exception as e:
+        return f"An Error Occured: {e}"
     try:
         orders = db.child("orders").get()
         order_history = {}
@@ -454,14 +550,6 @@ def get_order_history(customer_id):
         return jsonify({"message": "Order history found successfully", "order_history": order_history}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-
-    
-    
-#--> customer-update --> If I have time I will do it    
-#--> customer order history
-#-->admin get all orders
-#-->admin get last 10 orders
-
     
 if __name__ == '__main__':
     app.run(debug=True)
