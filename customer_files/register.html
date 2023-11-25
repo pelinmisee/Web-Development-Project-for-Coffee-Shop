@@ -243,9 +243,7 @@ body {
             let customer_surname = document.getElementById("customer_surname").value;
             let customer_email = document.getElementById("customer_email").value;
             let customer_phone = document.getElementById("customer_phone").value;
-            let customer_password = document.getElementById("customer_password").value;
-
-            console.log(customer_name, customer_surname, customer_email, customer_phone, customer_password)
+            let customer_password = document.getElementById("customer_password").value; 
 
             if (customer_name == "" || customer_surname == "" || customer_email == "" || customer_phone == "" || customer_password == "") {
                 alert("Please fill in all fields");
@@ -253,7 +251,7 @@ body {
             }
 
             if (customer_email.indexOf("@") == -1) {
-                alert("Please enter a valid email address");
+                document.getElementById("passwordWarning").innerText = "Please enter a valid phone number";
                 return;
             }
 
@@ -282,9 +280,38 @@ body {
 
             .then(response => response.json())
             .then(data => {
+
+          
+
+                if (data.message == "User with this email already exists") {
+                    alert("User with this email already exists")
+                    window.location.href = "register.html";
+                    return;
+                }
+
                 
-                alert(data.message)
-                window.location.href = "customer_signin.html";
+                if (data.message == "Password must contain at least 6 characters") {
+                    alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
+                    window.location.href = "register.html";
+                    return;
+                }
+
+                if (data.message == "Password must contain at least one number") {
+                    alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
+                    window.location.href = "register.html";
+                    return;
+                }
+
+                if (data.message == "Password must contain at least one uppercase letter") {
+                    alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
+                    window.location.href = "register.html";
+                    return;
+                }
+
+                if (data.message == "Customer registered successfully") {
+                    alert("Customer registered successfully");
+                    window.location.href = "customer_signin.html";
+                }
 
             })
         }
