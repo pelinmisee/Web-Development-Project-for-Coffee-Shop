@@ -427,6 +427,25 @@ def get_customer(customer_id):
         return jsonify(customer.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+#-->customer see hisd/her own order history
+@app.route('/customer/order-history/<string:customer_id>', methods=['GET'])
+@customer_auth()
+def get_order_history(customer_id):
+    try:
+        orders = db.child("orders").get()
+        order_history = {}
+        count = 0
+        for order in orders.each():
+            if order.val()["customer_id"] == customer_id:
+                order_history[order.key()] = order.val()
+                count += 1
+        if count == 0:
+            return jsonify({"message": "No orders found"}), 400
+        return jsonify({"message": "Order history found successfully", "order_history": order_history}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
     
     
 #--> customer-update --> If I have time I will do it    

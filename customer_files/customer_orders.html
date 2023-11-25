@@ -165,6 +165,62 @@ body {
             text-decoration: underline;
         }
 
+          
+        #price-container {
+            background-color: #6B4F4F;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        #price-container h2 {
+            color: #333333;
+        }
+        
+
+        #ordertable2 {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+
+        }
+    
+        #ordertable2 th, #ordertable td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 33%;
+            text-align: center;
+
+        }
+
+        #ordertable2 td {
+            background-color: #EED6C4;
+            color: #483434;
+            width: 33%;
+            text-align: center;
+
+        }
+
+        #ordertable2 td:hover {
+            background-color: #6B4F4F;
+            color: #EED6C4;
+
+        }
+    
+        #ordertable2 th {
+            background-color: #483434;
+            color: #FFF3E4;
+            text-align: center;
+        }
+
+  
+  
             </style>
 </head>
 
@@ -187,9 +243,70 @@ body {
         </nav>
 
 
+        <div id="price-container">
+            <table id="ordertable2">
+            
+            </table>
+
+        </div>
+
 
     <script>
 
+        function order_history() {
+            customer_id = localStorage.getItem("customer_id").replace('"', '').replace('"', '');
+            customer_token = localStorage.getItem("customer_token").replace('"', '').replace('"', '');  
+
+
+            fetch(`http://127.0.0.1:5000/customer/order-history/${customer_id}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${customer_token}`
+                }
+            })
+
+
+            .then((response) => response.json())
+            .then(data => { 
+                order_dict = data.order_history;
+                keys = Object.keys(order_dict);
+
+                document.getElementById("ordertable2").innerHTML += `
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Delivery Time</th>
+                        <th>Price</th>
+                        <th>Coffees</th>
+                    </tr>
+                `
+
+                keys.forEach( key => {
+                    order_id = key;
+                    order_date = order_dict[key].order_time;
+                    delivery_time = order_dict[key].delivery_time;
+                    price = order_dict[key].price;
+                    coffees = order_dict[key].coffee_list;
+                    coffee_names = "";
+
+                    coffees.forEach( coffee => {
+                        coffee_names += coffee.coffee_name + ", ";
+                    })
+
+                    document.getElementById("ordertable2").innerHTML += `
+                        <tr>
+                            <td>${order_id}</td>
+                            <td>${order_date}</td>
+                            <td>${delivery_time}</td>
+                            <td>${price}</td>
+                            <td>${coffee_names}</td>
+                        </tr>
+                    `
+                } 
+            )})
+    }
 
 
         function logout() {
@@ -198,6 +315,12 @@ body {
             localStorage.removeItem("total_order_quantity");
             localStorage.removeItem("coffee_list");
             window.location.href = "../index.html";
+        }
+
+        window.onload = function() {
+
+            order_history();
+
         }
 
 
