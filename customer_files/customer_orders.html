@@ -270,6 +270,23 @@ body {
 
             .then((response) => response.json())
             .then(data => { 
+                if (data.message == "No orders found") {
+                    document.getElementById("ordertable2").innerHTML += `
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Order Date</th>
+                            <th>Delivery Time</th>
+                            <th>Price</th>
+                            <th>Coffees</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5">No orders found</td>
+                        </tr>
+                    `
+                    return;
+                }
+
+
                 order_dict = data.order_history;
                 keys = Object.keys(order_dict);
 

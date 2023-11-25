@@ -216,28 +216,37 @@ def get_all_coffees_admin():
 def get_all_orders_admin():
     try:
         orders = db.child("orders").get()
-        return jsonify(orders.val()), 200
+        
+        if len(orders.val()) == 0:
+            return jsonify({"message": "No orders found"}), 400
+        
+        return jsonify({"message": "Orders found successfully", "orders": orders.val(), "count": len(orders.val())}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-
-
-#--> son 10 orderın alındığı
+    
 @app.route('/admin/last-10-orders', methods=['GET'])
 @admin_auth()
 def get_last_10_orders_admin():
     try:
         orders = db.child("orders").get()
         last_10_orders = {}
+        
+        if len(orders.val()) == 0:
+            return jsonify({"message": "No orders found"}), 400
+        
+        #start from last order and get 10 orders
         count = 0
-        for order in orders.each():
+        for order in reversed(orders.each()):
             if count == 10:
                 break
             last_10_orders[order.key()] = order.val()
             count += 1
-        return jsonify(last_10_orders), 200
-
+        return jsonify({"message": "Last 10 orders found successfully", "last_10_orders": last_10_orders}), 200
+    
+        
     except Exception as e:
         return f"An Error Occured: {e}"
+
 
 #--> CUSTOMER
 #-->customer_register

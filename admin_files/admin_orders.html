@@ -165,6 +165,88 @@ body {
             text-decoration: underline;
         }
 
+        #price-container {
+            background-color: #6B4F4F;
+            padding: 20px;
+            padding-top: 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        #price-container h2 {
+            color: #333333;
+        }
+        
+
+        #ordertable2 {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+
+        }
+    
+        #ordertable2 th, #ordertable td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 33%;
+            text-align: center;
+
+        }
+
+        #ordertable2 td {
+            background-color: #EED6C4;
+            color: #483434;
+            width: 33%;
+            text-align: center;
+
+        }
+
+        #ordertable2 td:hover {
+            background-color: #6B4F4F;
+            color: #EED6C4;
+
+        }
+    
+        #ordertable2 th {
+            background-color: #483434;
+            color: #FFF3E4;
+            text-align: center;
+        }
+
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 3%;
+        }
+        
+        .button-container button {
+            background-color: #EED6C4;
+            color: #483434;
+            padding: 10px;
+            justify-content: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100px;
+            margin-bottom: 3px;
+
+        }
+
+        .button-container button:hover {
+            background-color: #6B4F4F   ;
+            color: #483434;
+            text-decoration: underline;
+        }
+
+
+
             </style>
 </head>
 
@@ -185,9 +267,176 @@ body {
     
         </nav>
 
+        <div class="button-container">
+           
+            <button id="all_orders" onclick="all_orders()">See All Orders</button>
+            <button id="last_10_orders" onclick="see_last_ten_orders()">See Last 10 Order</button>
+        </div>
+       
+
+
+        <div id="price-container">
+            <table id="ordertable2">    
+            
+            </table>
+
+        </div>
+
 
 
     <script>
+
+        function see_last_ten_orders() {
+            admin_token= localStorage.getItem("admin_token").replace('"', '').replace('"', '');
+
+            fetch (`http://127.0.0.1:5000/admin/last-10-orders`,
+
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type" : "application/json",
+                    "Authorization" : `Bearer ${admin_token}`
+
+                }
+            }
+            )
+
+            .then((response) => response.json())
+            .then ((data) => {
+                orders=(data.last_10_orders);
+                keys = Object.keys(orders);
+                document.getElementById("ordertable2").innerHTML = `
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer ID</th>
+                        <th>Order Date</th>
+                        <th>Delivery Time</th>
+                        <th>Price</th>
+                        <th>Coffees</th>
+                    </tr>
+                `
+
+                keys.forEach( key => {
+                        
+                        order_id = key;
+                        customer_id = orders[key].customer_id;
+                        delivery_time = orders[key].delivery_time;
+                        order_date = orders[key].order_time;
+                        price = orders[key].price;
+                        coffees = orders[key].coffee_list;
+                        coffee_names = "";
+    
+                        coffees.forEach( coffee => {
+                            coffee_names += coffee.coffee_name + ", ";
+                        }) 
+                        
+                        document.getElementById("ordertable2").innerHTML += `
+                        <tr>
+                            <td>${order_id}</td>
+                            <td>${customer_id}</td>
+                            <td>${order_date}</td>
+                            <td>${delivery_time}</td>
+                            <td>${price}</td>
+                            <td>${coffee_names}</td>
+                        </tr>
+                    `
+
+
+
+                })
+
+                
+        })
+    }
+
+        function all_orders() {
+            admin_token= localStorage.getItem("admin_token").replace('"', '').replace('"', '');
+
+            fetch (`http://127.0.0.1:5000/admin/all-orders`,
+
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type" : "application/json",
+                    "Authorization" : `Bearer ${admin_token}`
+
+                }
+            }
+            )
+
+            .then((response) => response.json())
+            .then ((data) => {
+                if (data.message == "No orders found") {
+                    document.getElementById("ordertable2").innerHTML += `
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer ID</th>
+                        <th>Order Date</th>
+                        <th>Delivery Time</th>
+                        <th>Price</th>
+                        <th>Coffees</th>
+                    </tr>
+                    <tr>
+                        <td colspan="5">No orders found</td>
+                    </tr>
+                `
+                }
+
+                order_amount = data.count;
+                orders=(data.orders);
+                keys = Object.keys(orders);
+
+                document.getElementById("price-container").innerHTML = `
+                    <p style="text-align: center; color:#EED6C4">There are ${order_amount} orders in total.</p>
+                    <table id="ordertable2">    
+            
+                    </table>
+                `
+
+
+                document.getElementById("ordertable2").innerHTML = `
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer ID</th>
+                        <th>Order Date</th>
+                        <th>Delivery Time</th>
+                        <th>Price</th>
+                        <th>Coffees</th>
+                    </tr>
+                `
+
+
+
+                keys.forEach( key => {
+                    
+                    order_id = key;
+                    customer_id = orders[key].customer_id;
+                    console.log(customer_id);
+                    delivery_time = orders[key].delivery_time;
+                    order_date = orders[key].order_time;
+                    price = orders[key].price;
+                    coffees = orders[key].coffee_list;
+                    coffee_names = "";
+
+                    coffees.forEach( coffee => {
+                        coffee_names += coffee.coffee_name + ", ";
+                    }) 
+                    
+                    document.getElementById("ordertable2").innerHTML += `
+                    <tr>
+                        <td>${order_id}</td>
+                        <td>${customer_id}</td>
+                        <td>${order_date}</td>
+                        <td>${delivery_time}</td>
+                        <td>${price}</td>
+                        <td>${coffee_names}</td>
+                    </tr>
+                `
+            } 
+            )}
+        
+)
+}
 
 
 
@@ -197,6 +446,9 @@ body {
         }
 
 
+        window.onload = function () {
+            all_orders();
+        }
 
     </script>
 
