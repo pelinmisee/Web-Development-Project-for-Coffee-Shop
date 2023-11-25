@@ -141,7 +141,7 @@ def add_coffee():
             "large_price": coffee_l_price,
         })
         
-        return jsonify({"message": "Coffee added successfully"}), 201  # Created
+        return jsonify({"message": "Coffee added successfully"}), 201
     
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -340,7 +340,7 @@ def customer_register():
             "password": password
         })
         
-        return jsonify({"message": "Customer registered successfully"}), 201  # Created
+        return jsonify({"message": "Customer registered successfully"}), 201  
     except Exception as e:
         return f"An Error Occured: {e}"
     
