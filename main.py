@@ -1,7 +1,7 @@
 import pyrebase
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_jwt_extended import verify_jwt_in_request, create_access_token, JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import  create_access_token, JWTManager, jwt_required, get_jwt_identity
 import secrets
 import time
 
