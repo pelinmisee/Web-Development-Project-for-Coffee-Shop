@@ -358,6 +358,38 @@
                     var coffee_quantity = document.getElementById("quantity").value;
                     var total_order_quantity = localStorage.getItem("total_order_quantity") - coffee_quantity;
 
+
+                    fetch(`https://misepe.pythonanywhere.com/customer/all-coffees`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('customer_token').replace('"', '').replace('"', '')
+                            }
+                        })
+
+                        .then(response => response.json())
+                        .then(data => {
+                            const coffeeArray = Object.values(data);
+                            const keys = Object.keys(data);
+
+                            keys.forEach(key => {
+                                if (data[key].name != coffee_name) {
+                                    alert("Please choose a coffee from the list.");
+                                    return;
+                                    
+                                }
+                            })
+
+
+                        })
+
+
+
+
+
+
+
                     if (coffee_size == "" || coffee_name == "") {
                         alert("Please choose coffee size, coffee name.");
                         return;
