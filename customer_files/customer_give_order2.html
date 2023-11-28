@@ -382,14 +382,6 @@
                             })
 
 
-                        })
-
-
-
-
-
-
-
                     if (coffee_size == "" || coffee_name == "") {
                         alert("Please choose coffee size, coffee name.");
                         return;
@@ -411,13 +403,13 @@
                     if (coffee_list == null) {
                         coffee_list = [];
                     }
-                    //create a key value for coffee_list randomly a word with 10 characters
                     const key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
                     coffee_list.push({ "key": key, "coffee_name": coffee_name, "coffee_size": coffee_size, "coffee_quantity": coffee_quantity });
                     localStorage.setItem("coffee_list", JSON.stringify(coffee_list));
 
                     location.reload();
+                })
 
                 }
 
