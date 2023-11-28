@@ -54,7 +54,7 @@
         function see_last_ten_orders() {
             admin_token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
 
-            fetch(`http://misepe.pythonanywhere.com/admin/last-10-orders`,
+            fetch(`https://misepe.pythonanywhere.com/admin/last-10-orders`,
 
                 {
                     method: "GET",
@@ -117,7 +117,7 @@
         function all_orders() {
             admin_token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
 
-            fetch(`http://misepe.pythonanywhere.com/admin/all-orders`,
+            fetch(`https://misepe.pythonanywhere.com/admin/all-orders`,
 
                 {
                     method: "GET",

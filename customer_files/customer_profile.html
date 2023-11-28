@@ -247,7 +247,7 @@
             const customerId = localStorage.getItem("customer_id").replace('"', '').replace('"', '');
             const token = localStorage.getItem("customer_token").replace('"', '').replace('"', '');
 
-            const url = `http://misepe.pythonanywhere.com/customer/${customerId}`;
+            const url = `https://misepe.pythonanywhere.com/customer/${customerId}`;
 
             fetch(url,
                 {

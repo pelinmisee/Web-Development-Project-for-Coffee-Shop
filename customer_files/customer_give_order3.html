@@ -397,7 +397,7 @@
 
                 function confirm_order() {
                     const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
-                    fetch('http://misepe.pythonanywhere.com/customer/cal-price', {
+                    fetch('https://misepe.pythonanywhere.com/customer/cal-price', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -419,7 +419,6 @@
         </tr>
     </table>`;
 
-                            //search in each key of price_list
                             var total_price = 0;
                             keys = Object.keys(price_list);
                             keys.forEach(key => {
@@ -469,7 +468,7 @@
                     }
 
 
-                    fetch(`http://misepe.pythonanywhere.com/customer/give-order`,
+                    fetch(`https://misepe.pythonanywhere.com/customer/give-order`,
                         {
                             method: 'POST',
                             headers: {
