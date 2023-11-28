@@ -33,7 +33,8 @@
 
     <script>
         function get_all_coffees() {
-            fetch(`http://127.0.0.1:5000/admin/all-coffees`,
+
+            fetch(`http://misepe.pythonanywhere.com/admin/all-coffees`,
                 {
                     method: 'GET',
                     headers: {
@@ -82,7 +83,7 @@
 
             const token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
 
-            fetch(`http://127.0.0.1:5000/admin/delete-coffee`, {
+            fetch(`http://misepe.pythonanywhere.com/admin/delete-coffee`, {
                 method: 'DELETE',
                 body: JSON.stringify({ "id": coffee_id }),
                 headers: {

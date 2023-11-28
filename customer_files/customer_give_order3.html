@@ -397,7 +397,7 @@
 
                 function confirm_order() {
                     const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
-                    fetch('http://127.0.0.1:5000/customer/cal-price', {
+                    fetch('http://misepe.pythonanywhere.com/customer/cal-price', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -469,7 +469,7 @@
                     }
 
 
-                    fetch(`http://127.0.0.1:5000/customer/give-order`,
+                    fetch(`http://misepe.pythonanywhere.com/customer/give-order`,
                         {
                             method: 'POST',
                             headers: {
