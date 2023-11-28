@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,29 +7,30 @@
     <title>Apollo Coffee Shop</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-html    {
-        height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-          
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-     background-color: #FFF3E4;
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF3E4;
         }
 
 
 
         header {
-            background-color: #6B4F4F  ;
+            background-color: #6B4F4F;
             color: #FFF3E4;
             text-align: center;
             padding: 1em;
@@ -51,7 +51,7 @@ body {
         }
 
         nav a:hover {
-            background-color: #EED6C4   ;
+            background-color: #EED6C4;
             color: #483434;
         }
 
@@ -82,11 +82,11 @@ body {
             font-size: 1.2em;
             margin-top: 50px;
         }
-        
+
         .logo {
             width: 75px;
             height: 75px;
-        }   
+        }
 
 
         .coffee-list {
@@ -120,21 +120,21 @@ body {
 
         p {
             color: #483434;
-            font-size:1.15em;
+            font-size: 1.15em;
             font-weight: bold;
         }
 
-        #logout{
+        #logout {
             background-color: #483434;
             color: #FFF3E4;
             cursor: pointer;
             justify-content: center;
             display: block;
             width: 100px;
-            float:inline-end;
+            float: inline-end;
             padding: 1.22em;
             margin-top: -1%;
-        
+
         }
 
         #logout:hover {
@@ -156,16 +156,16 @@ body {
             margin: 0 auto;
             width: 100px;
 
-            
+
         }
 
         button:hover {
-            background-color: #EED6C4   ;
+            background-color: #EED6C4;
             color: #483434;
             text-decoration: underline;
         }
 
-          
+
         #price-container {
             background-color: #6B4F4F;
             padding: 20px;
@@ -175,11 +175,11 @@ body {
             padding-bottom: 5%;
 
         }
-        
+
         #price-container h2 {
             color: #333333;
         }
-        
+
 
         #ordertable2 {
             font-family: Arial, sans-serif;
@@ -188,12 +188,13 @@ body {
             text-align: center;
 
         }
-    
-        #ordertable2 th, #ordertable td {
+
+        #ordertable2 th,
+        #ordertable td {
             border: 1px solid #ddd;
             padding: 5px;
             text-align: center;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 33%;
@@ -214,24 +215,25 @@ body {
             color: #EED6C4;
 
         }
-    
+
         #ordertable2 th {
             background-color: #483434;
             color: #FFF3E4;
             text-align: center;
         }
+
         footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 3rem;            /* Footer height */
+            height: 3rem;
             background-color: #6B4F4F;
             color: #EED6C4;
             text-align: center;
-            
+
         }
-        
+
         footer p {
             padding: 1rem;
             margin: 0;
@@ -244,62 +246,58 @@ body {
             top: 0;
             z-index: 100;
         }
-
-
-  
-  
-            </style>
+    </style>
 </head>
 
 <body>
     <div class="navbar">
 
-    <header>
-        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
-        <h1>Apollo Coffee Shop
+        <header>
+            <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+            <h1>Apollo Coffee Shop
 
-        </h1>
-    </header>
+            </h1>
+        </header>
 
         <nav>
-            <a href="customer_coffees.html" >Coffees</a>
-            <a href="customer_orders.html" >Order History</a>
-            <a href="customer_profile.html" >My Profile</a>
-            <a href="customer_give_order.html" >Give Order</a>
+            <a href="customer_coffees.html">Coffees</a>
+            <a href="customer_orders.html">Order History</a>
+            <a href="customer_profile.html">My Profile</a>
+            <a href="customer_give_order.html">Give Order</a>
             <button id="logout" type="button" onclick="logout()">Logout</button>
-    
+
         </nav>
     </div>
 
-        <div id="price-container">
-            <table id="ordertable2">
-            
-            </table>
+    <div id="price-container">
+        <table id="ordertable2">
 
-        </div>
+        </table>
+
+    </div>
 
 
     <script>
 
         function order_history() {
             customer_id = localStorage.getItem("customer_id").replace('"', '').replace('"', '');
-            customer_token = localStorage.getItem("customer_token").replace('"', '').replace('"', '');  
+            customer_token = localStorage.getItem("customer_token").replace('"', '').replace('"', '');
 
 
             fetch(`http://127.0.0.1:5000/customer/order-history/${customer_id}`,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${customer_token}`
-                }
-            })
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${customer_token}`
+                    }
+                })
 
 
-            .then((response) => response.json())
-            .then(data => { 
-                if (data.message == "No orders found") {
-                    document.getElementById("ordertable2").innerHTML += `
+                .then((response) => response.json())
+                .then(data => {
+                    if (data.message == "No orders found") {
+                        document.getElementById("ordertable2").innerHTML += `
                         <tr>
                             <th>Order ID</th>
                             <th>Order Date</th>
@@ -311,14 +309,14 @@ body {
                             <td colspan="5">No orders found</td>
                         </tr>
                     `
-                    return;
-                }
+                        return;
+                    }
 
 
-                order_dict = data.order_history;
-                keys = Object.keys(order_dict);
+                    order_dict = data.order_history;
+                    keys = Object.keys(order_dict);
 
-                document.getElementById("ordertable2").innerHTML += `
+                    document.getElementById("ordertable2").innerHTML += `
                     <tr>
                         <th>Order ID</th>
                         <th>Order Date</th>
@@ -328,19 +326,19 @@ body {
                     </tr>
                 `
 
-                keys.forEach( key => {
-                    order_id = key;
-                    order_date = order_dict[key].order_time;
-                    delivery_time = order_dict[key].delivery_time;
-                    price = order_dict[key].price;
-                    coffees = order_dict[key].coffee_list;
-                    coffee_names = "";
+                    keys.forEach(key => {
+                        order_id = key;
+                        order_date = order_dict[key].order_time;
+                        delivery_time = order_dict[key].delivery_time;
+                        price = order_dict[key].price;
+                        coffees = order_dict[key].coffee_list;
+                        coffee_names = "";
 
-                    coffees.forEach( coffee => {
-                        coffee_names += coffee.coffee_name + ", ";
-                    })
+                        coffees.forEach(coffee => {
+                            coffee_names += coffee.coffee_name + ", ";
+                        })
 
-                    document.getElementById("ordertable2").innerHTML += `
+                        document.getElementById("ordertable2").innerHTML += `
                         <tr>
                             <td>${order_id}</td>
                             <td>${order_date}</td>
@@ -349,9 +347,10 @@ body {
                             <td>${coffee_names}</td>
                         </tr>
                     `
-                } 
-            )})
-    }
+                    }
+                    )
+                })
+        }
 
 
         function logout() {
@@ -362,7 +361,7 @@ body {
             window.location.href = "../index.html";
         }
 
-        window.onload = function() {
+        window.onload = function () {
 
             order_history();
 
@@ -377,7 +376,7 @@ body {
 <footer>
     <p>Copyright © Apollo Coffee 2023
 
-        Pelin Mişe 
+        Pelin Mişe
     </p>
 </footer>
 

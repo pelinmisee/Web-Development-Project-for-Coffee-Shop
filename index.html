@@ -7,29 +7,30 @@
     <title>Apollo Coffee Shop</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-html    {
-        height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-          
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-     background-color: #FFF3E4;
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF3E4;
         }
 
 
 
         header {
-            background-color: #6B4F4F  ;
+            background-color: #6B4F4F;
             color: #FFF3E4;
             text-align: center;
             padding: 1em;
@@ -50,7 +51,7 @@ body {
         }
 
         nav a:hover {
-            background-color: #EED6C4   ;
+            background-color: #EED6C4;
             color: #483434;
         }
 
@@ -76,59 +77,55 @@ body {
             font-size: 1.5em;
             margin-top: 50px;
         }
-        
+
         .logo {
             width: 75px;
             height: 75px;
-        }   
+        }
 
-      /* Footer styles */
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3rem;            /* Footer height */
-    background-color: #6B4F4F;
-    color: #EED6C4;
-    text-align: center;
-    
-}
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3rem;
+            background-color: #6B4F4F;
+            color: #EED6C4;
+            text-align: center;
 
-footer p {
-    padding: 1rem;
-    margin: 0;
-    color: #EED6C4;
-    font-size: smaller;
-}
+        }
 
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+        footer p {
+            padding: 1rem;
+            margin: 0;
+            color: #EED6C4;
+            font-size: smaller;
+        }
 
-
-
-            </style>
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+    </style>
 </head>
 
 <body>
     <div class="navbar">
 
-    <header>
-        <img class="logo" src="..\WEB_HW3\logo.png" alt="" style="float: left; margin-left: 10px;">
-        <h1>Apollo Coffee Shop
+        <header>
+            <img class="logo" src="..\WEB_HW3\logo.png" alt="" style="float: left; margin-left: 10px;">
+            <h1>Apollo Coffee Shop
 
-        </h1>
-    </header>
+            </h1>
+        </header>
 
-    <nav>
-        <a href="index.html" onclick="showSection('welcome')">Home</a>
-        <a href="./customer_files/customer_signin.html" >Customer Sign In</a>
-        <a href="./admin_files/admin_signin.html" >Admin Sign In</a>
-        <a href="./customer_files/register.html">Register</a>
-    </nav>
+        <nav>
+            <a href="index.html" onclick="showSection('welcome')">Home</a>
+            <a href="./customer_files/customer_signin.html">Customer Sign In</a>
+            <a href="./admin_files/admin_signin.html">Admin Sign In</a>
+            <a href="./customer_files/register.html">Register</a>
+        </nav>
     </div>
     <section id="welcome">
         <h1 class="section_h1">Welcome to Apollo Coffee Shop</h1>
@@ -142,11 +139,12 @@ footer p {
     <section id="about" style="display: none;">
         <h1 class="section_h1">About Apollo Coffee Shop</h1>
         <p>
-            Apollo Coffee shop aims to provide the best coffee in town. We have a wide variety of coffee types and sizes.
+            Apollo Coffee shop aims to provide the best coffee in town. We have a wide variety of coffee types and
+            sizes.
         </p>
     </section>
 
-    
+
     <script>
         const welcomeMessage = document.getElementById('welcome-message');
         const messageText = welcomeMessage.textContent;
@@ -165,7 +163,7 @@ footer p {
         window.onload = function () {
             typeWriter(messageText, 0);
         };
-    
+
     </script>
 </body>
 
@@ -173,7 +171,7 @@ footer p {
 <footer>
     <p>Copyright © Apollo Coffee 2023
 
-        Pelin Mişe 
+        Pelin Mişe
     </p>
 </footer>
 

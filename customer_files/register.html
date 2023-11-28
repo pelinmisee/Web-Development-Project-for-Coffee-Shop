@@ -7,29 +7,30 @@
     <title>Apollo Coffee Shop</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-html    {
-        height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-          
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-     background-color: #FFF3E4;
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF3E4;
         }
 
 
 
         header {
-            background-color: #6B4F4F  ;
+            background-color: #6B4F4F;
             color: #FFF3E4;
             text-align: center;
             padding: 1em;
@@ -50,7 +51,7 @@ body {
         }
 
         nav a:hover {
-            background-color: #EED6C4   ;
+            background-color: #EED6C4;
             color: #483434;
         }
 
@@ -78,11 +79,11 @@ body {
             color: #483434;
             font-size: 1.5em;
         }
-        
+
         .logo {
             width: 75px;
             height: 75px;
-        }   
+        }
 
 
         .wrapper {
@@ -94,8 +95,8 @@ body {
             padding: 30px 50px;
             margin: auto;
             margin-top: 10px;
-    
-    }
+
+        }
 
 
         .wrapper h1 {
@@ -120,7 +121,7 @@ body {
             border-radius: 40px;
             font-size: 16px;
             color: #EED6C4;
-            padding:20px 30px 20px 20px;
+            padding: 20px 30px 20px 20px;
         }
 
         .input-box input::placeholder {
@@ -180,13 +181,13 @@ body {
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 3rem;            /* Footer height */
+            height: 3rem;
             background-color: #6B4F4F;
             color: #EED6C4;
             text-align: center;
-            
+
         }
-        
+
         footer p {
             padding: 1rem;
             margin: 0;
@@ -199,28 +200,26 @@ body {
             top: 0;
             z-index: 100;
         }
-
-
-        </style>
+    </style>
 
 </head>
 
 <body>
     <div class="navbar">
 
-    <header>
-        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
-        <h1>Apollo Coffee Shop
+        <header>
+            <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+            <h1>Apollo Coffee Shop
 
-        </h1>
-    </header>
+            </h1>
+        </header>
 
-    <nav>
-        <a href="..\index.html" onclick="showSection('welcome')">Home</a>
-        <a href="..\customer_files\customer_signin.html" >Customer Sign In</a>
-        <a href="..\admin_files\admin_signin.html" >Admin Sign In</a>
-        <a href="..\customer_files\register.html">Register</a>
-    </nav>
+        <nav>
+            <a href="..\index.html" onclick="showSection('welcome')">Home</a>
+            <a href="..\customer_files\customer_signin.html">Customer Sign In</a>
+            <a href="..\admin_files\admin_signin.html">Admin Sign In</a>
+            <a href="..\customer_files\register.html">Register</a>
+        </nav>
     </div>
     <div class="wrapper">
         <form>
@@ -229,7 +228,7 @@ body {
                 <label for="customer_name">Name</label>
                 <input id="customer_name" type="text" placeholder="Name" required>
             </div>
-            <div class="input-box">                <label for="customer_surname">Surname</label>
+            <div class="input-box"> <label for="customer_surname">Surname</label>
                 <input id="customer_surname" type="text" placeholder="Surname" required>
 
             </div>
@@ -247,13 +246,14 @@ body {
 
 
             <div class="input-box">
-                <i class='bx bxs-lock-alt' ></i>
+                <i class='bx bxs-lock-alt'></i>
                 <label for="customer_password">Password</label>
                 <input id="customer_password" type="password" placeholder="Password" required>
 
             </div>
 
-           <button id="customer-register" class="btn" type="submit" onclick="customer_register(event)">Register</button>
+            <button id="customer-register" class="btn" type="submit"
+                onclick="customer_register(event)">Register</button>
 
 
 
@@ -268,7 +268,7 @@ body {
             let customer_surname = document.getElementById("customer_surname").value;
             let customer_email = document.getElementById("customer_email").value;
             let customer_phone = document.getElementById("customer_phone").value;
-            let customer_password = document.getElementById("customer_password").value; 
+            let customer_password = document.getElementById("customer_password").value;
 
             if (customer_name == "" || customer_surname == "" || customer_email == "" || customer_phone == "" || customer_password == "") {
                 alert("Please fill in all fields");
@@ -286,67 +286,67 @@ body {
             }
 
 
-            fetch (`http://127.0.0.1:5000/customer/register`, 
+            fetch(`http://127.0.0.1:5000/customer/register`,
 
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: customer_name,
-                    surname: customer_surname,
-                    email: customer_email,
-                    phone: customer_phone,
-                    password: customer_password
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: customer_name,
+                        surname: customer_surname,
+                        email: customer_email,
+                        phone: customer_phone,
+                        password: customer_password
+                    })
                 })
-            })
 
 
-            .then(response => response.json())
-            .then(data => {
+                .then(response => response.json())
+                .then(data => {
 
-          
 
-                if (data.message == "User with this email already exists") {
-                    alert("User with this email already exists")
-                    window.location.href = "register.html";
-                    return;
-                }
 
-                
-                if (data.message == "Password must contain at least 6 characters") {
-                    alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
-                    window.location.href = "register.html";
-                    return;
-                }
+                    if (data.message == "User with this email already exists") {
+                        alert("User with this email already exists")
+                        window.location.href = "register.html";
+                        return;
+                    }
 
-                if (data.message == "Password must contain at least one number") {
-                    alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
-                    window.location.href = "register.html";
-                    return;
-                }
 
-                if (data.message == "Password must contain at least one uppercase letter") {
-                    alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
-                    window.location.href = "register.html";
-                    return;
-                }
+                    if (data.message == "Password must contain at least 6 characters") {
+                        alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
+                        window.location.href = "register.html";
+                        return;
+                    }
 
-                if (data.message == "Customer registered successfully") {
-                    alert("Customer registered successfully");
-                    window.location.href = "customer_signin.html";
-                }
+                    if (data.message == "Password must contain at least one number") {
+                        alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
+                        window.location.href = "register.html";
+                        return;
+                    }
 
-            })
+                    if (data.message == "Password must contain at least one uppercase letter") {
+                        alert("Password must contain at least 6 characters, one number, one lowercase letter and one uppercase letter");
+                        window.location.href = "register.html";
+                        return;
+                    }
+
+                    if (data.message == "Customer registered successfully") {
+                        alert("Customer registered successfully");
+                        window.location.href = "customer_signin.html";
+                    }
+
+                })
         }
-           
 
 
-        
+
+
     </script>
- 
-    
+
+
 
 
 
@@ -354,7 +354,8 @@ body {
 <footer>
     <p>Copyright © Apollo Coffee 2023
 
-        Pelin Mişe 
+        Pelin Mişe
     </p>
 </footer>
+
 </html>

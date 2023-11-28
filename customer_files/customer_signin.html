@@ -8,29 +8,30 @@
     <script src="../script.js"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-html    {
-        height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-          
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-     background-color: #FFF3E4;
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF3E4;
         }
 
 
 
         header {
-            background-color: #6B4F4F  ;
+            background-color: #6B4F4F;
             color: #FFF3E4;
             text-align: center;
             padding: 1em;
@@ -51,7 +52,7 @@ body {
         }
 
         nav a:hover {
-            background-color: #EED6C4   ;
+            background-color: #EED6C4;
             color: #483434;
         }
 
@@ -79,11 +80,11 @@ body {
             color: #483434;
             font-size: 1.5em;
         }
-        
+
         .logo {
             width: 75px;
             height: 75px;
-        }   
+        }
 
 
         .wrapper {
@@ -95,8 +96,8 @@ body {
             padding: 30px 50px;
             margin: auto;
             margin-top: 60px;
-    
-    }
+
+        }
 
 
         .wrapper h1 {
@@ -121,7 +122,7 @@ body {
             border-radius: 40px;
             font-size: 16px;
             color: #EED6C4;
-            padding:20px 45px 20px 20px;
+            padding: 20px 45px 20px 20px;
         }
 
         .input-box input::placeholder {
@@ -181,13 +182,13 @@ body {
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 3rem;            /* Footer height */
+            height: 3rem;
             background-color: #6B4F4F;
             color: #EED6C4;
             text-align: center;
-            
+
         }
-        
+
         footer p {
             padding: 1rem;
             margin: 0;
@@ -200,27 +201,26 @@ body {
             top: 0;
             z-index: 100;
         }
-
-        </style>
+    </style>
 
 </head>
 
 <body>
     <div class="navbar">
 
-    <header>
-        <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
-        <h1>Apollo Coffee Shop
+        <header>
+            <img class="logo" src="..\logo.png" alt="" style="float: left; margin-left: 10px;">
+            <h1>Apollo Coffee Shop
 
-        </h1>
-    </header>
+            </h1>
+        </header>
 
-    <nav>
-        <a href="..\index.html" onclick="showSection('welcome')">Home</a>
-        <a href="customer_signin.html" >Customer Sign In</a>
-        <a href="..\admin_files\admin_signin.html" >Admin Sign In</a>
-        <a href="..\customer_files\register.html">Register</a>
-    </nav>
+        <nav>
+            <a href="..\index.html" onclick="showSection('welcome')">Home</a>
+            <a href="customer_signin.html">Customer Sign In</a>
+            <a href="..\admin_files\admin_signin.html">Admin Sign In</a>
+            <a href="..\customer_files\register.html">Register</a>
+        </nav>
     </div>
     <div class="wrapper">
         <form>
@@ -231,17 +231,17 @@ body {
                 <input id="customer_email" type="text" placeholder="Email" required>
             </div>
             <div class="input-box">
-                <i class='bx bxs-lock-alt' ></i>
+                <i class='bx bxs-lock-alt'></i>
                 <label for="customer_password">Password</label>
                 <input id="customer_password" type="password" placeholder="Password" required>
 
             </div>
 
-           <button id="customer-login" class="btn" type="submit" onclick="customer_login(event)">Login</button>
+            <button id="customer-login" class="btn" type="submit" onclick="customer_login(event)">Login</button>
 
-           <div class="register-link">
-            <p>Don't have an account? <a href="register.html">Register Here</a></p>
-           </div>
+            <div class="register-link">
+                <p>Don't have an account? <a href="register.html">Register Here</a></p>
+            </div>
 
 
         </form>
@@ -252,7 +252,7 @@ body {
 <footer>
     <p>Copyright © Apollo Coffee 2023
 
-        Pelin Mişe 
+        Pelin Mişe
     </p>
 </footer>
 
