@@ -352,36 +352,11 @@
                 }
 
                 function add_coffee_to_local_storage() {
-
+                    const coffee_quantity = document.getElementById("quantity").value;
+                    const coffee_size = document.getElementById("coffee_size").value;
+                    const total_order_quantity = localStorage.getItem("total_order_quantity") - coffee_quantity;
+                    const coffee_name = document.getElementById("coffee_name").value;
                 
-                    fetch(`https://misepe.pythonanywhere.com/customer/all-coffees`,
-                        {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': 'Bearer ' + localStorage.getItem('customer_token').replace('"', '').replace('"', '')
-                            }
-                        })
-
-                        .then(response => response.json())
-                        .then(data => {
-                            const coffeeArray = Object.values(data);
-                            const keys = Object.keys(data);
-                            validCoffees = [];
-
-                            keys.forEach(key => {
-                                validCoffees.push(data[key].coffee_name);
-
-                            })
-
-                            if (!validCoffees.includes(document.getElementById("coffee_name").value)) {
-                                alert("Please choose a valid coffee name.");
-                                return;
-                            }
-
-
-                             })
-                           
                     if (coffee_size == "" || coffee_name == "") {
                         alert("Please choose coffee size, coffee name.");
                         return;
