@@ -402,7 +402,7 @@
 
                 function confirm_order() {
                     const coffee_list = JSON.parse(localStorage.getItem("coffee_list"));
-                    fetch('https://misepe.pythonanywhere.com/customer/cal-price', {
+                    fetch('https://pelinmisee--web-hw5-flask-app.modal.run/customer/cal-price', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -473,7 +473,7 @@
                     }
 
 
-                    fetch(`https://misepe.pythonanywhere.com/customer/give-order`,
+                    fetch(`https://pelinmisee--web-hw5-flask-app.modal.run/customer/give-order`,
                         {
                             method: 'POST',
                             headers: {

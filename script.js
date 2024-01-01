@@ -8,7 +8,7 @@ function admin_login(event) {
     const admin_email = document.getElementById("admin-email").value;
     const admin_password = document.getElementById("admin-password").value;
 
-    fetch(`https://misepe.pythonanywhere.com/admin/login`, {
+    fetch(`https://pelinmisee--web-hw5-flask-app.modal.run/admin/login`, {
         method: 'POST',
         body: JSON.stringify({ email: admin_email, password: admin_password }),
         headers: {
@@ -38,7 +38,7 @@ function customer_login(event) {
     const customer_email = document.getElementById("customer_email").value;
     const customer_password = document.getElementById("customer_password").value;
 
-    fetch(`https://misepe.pythonanywhere.com/customer/login`, {
+    fetch(`https://pelinmisee--web-hw5-flask-app.modal.run/customer/login`, {
         method: 'POST',
         body: JSON.stringify({ email: customer_email, password: customer_password }),
         headers: {

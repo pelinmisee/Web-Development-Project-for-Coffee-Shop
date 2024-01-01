@@ -272,10 +272,10 @@
             const token = localStorage.getItem("admin_token").replace('"', '').replace('"', '');
 
 
-            fetch(`https://misepe.pythonanywhere.com/admin/update-coffee`,
+            fetch(`https://pelinmisee--web-hw5-flask-app.modal.run/admin/update-coffee`,
 
                 {
-                    method: 'PUT',
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
